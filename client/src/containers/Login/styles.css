@@ -1,0 +1,73 @@
+.login {
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+}
+
+.login .cardContainer {
+    width: 420px;
+    max-width: 95%;
+    min-width: 320px;
+}
+
+.login .formContainer {
+    padding: 1rem 4rem 3.25rem 4rem;
+}
+
+.login .logo {
+    margin-bottom: 1rem;
+    margin-top: -97px;
+    position: relative;
+    z-index: 1000;
+}
+
+.login .enterButton {
+    margin: 2.25rem 0 0 0;
+}
+
+.login .loginFormError {
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    padding: 1rem 0;
+    color: red;
+    width: 290px;
+    font-size: 12px;
+}
+
+.login .unknownEmailMessage {
+    padding: 0 1rem;
+    line-height: 1.42rem;
+    max-width: 480px;
+}
+
+.login .join-dialog {
+    padding: 1rem;
+}
+
+.login .bottomLeft {
+    bottom: 0;
+    left: 0;
+    margin-bottom: -10px;
+    overflow: hidden;
+    position: absolute;
+}
+
+.login .topRight {
+    animation: parallax-clouds 60s infinite alternate ease-in-out;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+@keyframes parallax-clouds {
+    0% {
+        transform: translate3d(0px, 0px, 0px);
+    }
+    50% {
+        transform: translate3d(50px, 0px, 0px);
+    }
+    100% {
+        transform: translate3d(-50px, 0px, 0px);
+    }
+}
