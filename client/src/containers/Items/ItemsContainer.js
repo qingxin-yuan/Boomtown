@@ -1,10 +1,43 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import Items from './Items';
-
-import './style.css'
+import './style.css';
 
 export default class ItemsContainer extends Component {
-  render(){
-    return <Items/>
-  }
+    constructor() {
+        super();
+        this.state = {
+            items: [],
+            users: []
+        };
+    }
+    componentDidMount() {
+        // Fetch JSON and attach to state
+        const items = fetch('http://localhost:4000/items').then(r => r.json());
+        const users = fetch('http://localhost:4000/users').then(r => r.json());
+
+        // console.log(items, users);
+        Promise.all([items, users]).then(response => {
+        //     const userTable = {};
+            const [itemsList, userList] = response;
+
+            console.log(itemsList, userList);
+ 
+            itemsList.map(item => {
+      
+                item.itemowner = userList.find(
+                  user=>user.id===item.itemowner
+                )
+
+            });
+
+            // console.log(itemsList);
+
+            this.setState({ items: itemsList, users: userList });
+            console.log(userList);
+
+        });
+    }
+    render() {
+        return <Items items={this.state.items} users = {this.state.users}/>;
+    }
 }
