@@ -6,29 +6,42 @@ import Masonry from 'react-masonry-component';
 import './style.css'
 
 
+const overlay = (items, users)=>{
+
+  // let borrower = items.borrower?users.find(el=>el.id===items.borrower):''
+  // return borrower.fullname;
+  // item.available?<CardTitle title="Unavailable" />:''
+  // (borrower)?<CardTitle title={"lent to "+borrower} />:''
+  // if ()
+}
+
+
+
+
 const Items = ({items, users}) => (
   
-<div className="masonry-wrapper">
+
 <Masonry className="masonry" elementType="ul"> 
   
   {(items!== undefined && users!== undefined)?items.map(item=>
   // <Masonry className="grid-item">
     <li className="masonry-item" key={item.id}>
-    <ItemCard key={item.id} item={item} users={users}/>
+    <ItemCard key={item.id} item={item} borrower={overlay(item, users)}/>
+    
     </li>
   ):''}
  </Masonry>
-</div>
 )  
-
-  // JSON.stringify(list)
-  // console.log(items);
-  // return <ItemCard/>
 
 
 
 export default Items;
 
+
+
+  // JSON.stringify(list)
+  // console.log(items);
+  // return <ItemCard/>
 // export default class Items extends Component {
 //   render(){
 //     return null;
@@ -40,6 +53,6 @@ export default Items;
 // }
 
 //specify what type of props are passing in
-// Items.propTypes = {
-//   list: PropTypes.array.isRequired
-// }
+Items.propTypes = {
+  items: PropTypes.array.isRequired
+}

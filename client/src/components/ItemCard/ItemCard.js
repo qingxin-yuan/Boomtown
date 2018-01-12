@@ -4,27 +4,27 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
+import moment from 'moment';
 
-const ItemCard = ({item, users}) => (
+const ItemCard = ({item, borrower}) => (
   
   <Card>
-
-    <CardHeader 
-      avatar={<Gravatar email={item.itemowner.email} />}
-      title={item.itemowner.fullname}
-      subtitle={item.created} />
-    
     
     <CardMedia
       overlay={
       
-        (item.available?<CardTitle title="Unavailable" />:'')
-        // ||(items.borrower?<CardTitle title={"lent to "+users.find(el=> el.id===items.borrower)} />:'')
+        item.available?<CardTitle title="Unavailable" />:''
+       
       }
     >
- {/* {console.log(users.find())} */}
+
       <img src={item.imageurl} alt="" />
     </CardMedia>
+
+    <CardHeader 
+      avatar={<Gravatar email={item.itemowner.email} />}
+      title={item.itemowner.fullname}
+      subtitle={moment(item.created).fromNow()} />
     <CardTitle title={item.title} subtitle={item.tags.join(", ")} />
     <CardText>
      {item.description}
