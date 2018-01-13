@@ -7,7 +7,8 @@ export default class ItemsContainer extends Component {
         super();
         this.state = {
             items: [],
-            users: []
+            users: [],
+            
         };
     }
     componentDidMount() {
@@ -30,14 +31,15 @@ export default class ItemsContainer extends Component {
 
             });
 
-            // console.log(itemsList);
-
             this.setState({ items: itemsList, users: userList });
-            console.log(userList);
+            // console.log(userList);
 
         });
     }
     render() {
-        return <Items items={this.state.items} users = {this.state.users}/>;
+      console.log(this.props.index);
+
+      //TODO: finish filtering
+        return <Items items={this.state.items} users = {this.state.users} tags={this.props.tags} i={this.props.index}/>;
     }
 }

@@ -17,21 +17,26 @@ const overlay = (items, users)=>{
 
 
 
+const Items = ({items, users, tags, i}) => {
 
-const Items = ({items, users}) => (
-  
+  // tags = items.tags;
+  // items = items.filter(item=>(item.tags[0]||item.tags[1])===this.props.tags[i])
 
-<Masonry className="masonry" elementType="ul"> 
+  // console.log(items);
+
+return (<Masonry className="masonry" elementType="ul"> 
   
-  {(items!== undefined && users!== undefined)?items.map(item=>
+  {
+    
+    (items!== undefined && users!== undefined)?items.map(item=>
   // <Masonry className="grid-item">
     <li className="masonry-item" key={item.id}>
     <ItemCard key={item.id} item={item} borrower={overlay(item, users)}/>
     
     </li>
   ):''}
- </Masonry>
-)  
+ </Masonry>)
+} 
 
 
 
