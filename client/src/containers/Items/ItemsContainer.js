@@ -37,9 +37,12 @@ export default class ItemsContainer extends Component {
         });
     }
     render() {
-    //   console.log(this.props.index);
+        // if(this.props.tag !== undefined){
+            // console.log(this.props.tag);
+        // }
+    
 
       //TODO: finish filtering
-        return <Items items={this.state.items} users={this.state.users} tags={this.props.tags} i={this.props.index}/>;
+        return <Items items={this.state.items} users={this.state.users} tag={this.props.tag} i={this.props.index}/>;
     }
 }

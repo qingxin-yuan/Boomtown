@@ -19,14 +19,23 @@ const overlay = (items, users)=>{
 
 
 
-const Items = ({items, users, tags, i}) => {
+const Items = ({items, users, tag, i}) => {
+  
 
   // tags = items.tags;
   // items = items.filter(item=>(item.tags[0]||item.tags[1])===this.props.tags[i])
 
   // console.log(items);
+// if(tag !== undefined){
+    console.log(tag);
+    let newList = items.slice().filter(item=> item.tags === tag)
+    console.log(newList);
+// }
+
+
 
 return (
+  
 <Masonry className="masonry" elementType="ul"> 
   
   {

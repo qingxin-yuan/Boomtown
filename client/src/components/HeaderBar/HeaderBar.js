@@ -13,7 +13,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import logo from '../../images/boomtown-logo.svg';
-import ItemsContainer from '../../containers/Items';
+import Items from '../../containers/Items';
 
 import './style.css'
 
@@ -32,15 +32,15 @@ export default class HeaderBar extends Component {
 
     this.setState({value})
 
-    console.log(this.state.tags)
+    // console.log(this.state.tags[index]);
 
-    return <ItemsContainer index={index} tags={this.state.tags}/>
-
+    return <Items tag={this.state.tags[index]}/>
     
   };
     
   render() {
     return (
+      // <Items tag={this.state.tags[index]}/>
       // <MuiThemeProvider>
       <AppBar
    
@@ -71,7 +71,7 @@ export default class HeaderBar extends Component {
     style={{
       backgroundColor: "white",
       fontFamily: "Roboto, sans-serif",
-      height: '64px',
+      // height: 'auto',
       // width: '150px'
     }}
   />
