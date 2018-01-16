@@ -25,21 +25,21 @@ export default class ItemsContainer extends Component {
  
             itemsList.map(item => {
       
-                item.itemowner = userList.find(
+                item.itemowner = userList.slice().find(
                   user=>user.id===item.itemowner
                 )
 
             });
 
-            this.setState({ items: itemsList, users: userList });
+            this.setState({ items: itemsList, users: userList});
             // console.log(userList);
 
         });
     }
     render() {
-      console.log(this.props.index);
+    //   console.log(this.props.index);
 
       //TODO: finish filtering
-        return <Items items={this.state.items} users = {this.state.users} tags={this.props.tags} i={this.props.index}/>;
+        return <Items items={this.state.items} users={this.state.users} tags={this.props.tags} i={this.props.index}/>;
     }
 }

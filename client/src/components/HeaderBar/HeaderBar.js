@@ -15,6 +15,8 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import logo from '../../images/boomtown-logo.svg';
 import ItemsContainer from '../../containers/Items';
 
+import './style.css'
+
 export default class HeaderBar extends Component {
 
   constructor(props) {
@@ -43,9 +45,9 @@ export default class HeaderBar extends Component {
       <AppBar
    
     iconElementLeft={
-      <div>
-      <a href="/"><img src={logo}/></a>
-    <SelectField value={this.state.value} onChange={this.handleChange} style={{width: 300,}} hintText="Filter by Tag">
+      <div className="header-left">
+      <a href="/"><img src={logo} alt="boomtown logo"/></a>
+    <SelectField value={this.state.value} onChange={this.handleChange} style={{width: 256,marginLeft: '20px'}} hintText="Filter by Tag">
     
       <MenuItem value={1} primaryText={this.state.tags[0]} />
       <MenuItem value={2} primaryText={this.state.tags[1]} />
@@ -59,14 +61,18 @@ export default class HeaderBar extends Component {
       </div>
     }
     iconElementRight={
-      <div>
-      <RaisedButton label="My Profile" primary={true} />
-      <RaisedButton label="Log Out" secondary={true} />
+      <div className="header-right">
+      <RaisedButton label="My Profile" primary={true} style={{
+        marginRight: '18px'
+      }}/>
+      <RaisedButton label="Logout" secondary={true} />
       </div>
     }
     style={{
       backgroundColor: "white",
-      fontFamily: "Roboto, sans-serif"
+      fontFamily: "Roboto, sans-serif",
+      height: '64px',
+      // width: '150px'
     }}
   />
   // </MuiThemeProvider>

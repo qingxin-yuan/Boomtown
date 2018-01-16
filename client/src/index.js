@@ -18,7 +18,8 @@ import muiTheme from './config/theme';
 import Layout from './components/Layout';
 import Login from './containers/Login';
 import Items from './containers/Items';
-
+import Profile from './containers/Profile';
+import Share from './containers/Share';
 // import ItemsContainer from './containers/Items/ItemsContainer';
 
 // injectTapEventPlugin();
@@ -32,10 +33,10 @@ const Boomtown = () => (
                 {/* <div className="masonry-wrapper">
                     <HeaderBar/> */}
                     <Switch>
-                        <Route exact path="/login" component={Login} />
+                        {/* <Route exact path="/login" component={Login} /> */}
                         <Route exact path="/" component={Items} />
-                        {/* <Route exact path="/profile/:userid" component={} />
-                        <Route exact path="/share" component={} /> */}
+                        <Route exact path="/profile/:userid" component={Profile} />
+                        <Route exact path="/share" component={Share} />
 
                     </Switch>
                 {/* </div> */}

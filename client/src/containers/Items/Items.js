@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import ItemCard from "../../components/ItemCard/ItemCard.js";
 import Masonry from 'react-masonry-component';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 
 import './style.css'
 
@@ -24,17 +26,34 @@ const Items = ({items, users, tags, i}) => {
 
   // console.log(items);
 
-return (<Masonry className="masonry" elementType="ul"> 
+return (
+<Masonry className="masonry" elementType="ul"> 
   
   {
     
-    (items!== undefined && users!== undefined)?items.map(item=>
+    (items!== undefined && users !== undefined)?items.map(item=>
   // <Masonry className="grid-item">
     <li className="masonry-item" key={item.id}>
-    <ItemCard key={item.id} item={item} borrower={overlay(item, users)}/>
+
+    <ItemCard key={item.id} item={item} borrower={overlay(item, users)} />
     
     </li>
+
+    
   ):''}
+<div className="share-button">
+<a href="/share"> 
+  <FloatingActionButton secondary={true} style={{
+  
+    position: 'fixed',
+    right: '20px',
+    bottom: '20px',
+
+    }} >
+  <ContentAdd />
+  </FloatingActionButton>
+</a>
+</div>
  </Masonry>)
 } 
 
