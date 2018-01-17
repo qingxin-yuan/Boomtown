@@ -1,8 +1,32 @@
 import React, {Component} from 'react';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+
+import Items from '../../containers/Items';
+
+
 import './style.css'
 
-export default class ItemCardList extends Component{
-  render(){
-    return <div> ItemCardList </div>
-  }
+const ItemCardList = () => {
+  // render(){
+    return (
+    <div className="items-wrapper">
+      <Items/>
+      <div className="share-button">
+        <a href="/share"> 
+          <FloatingActionButton secondary={true} style={{
+          
+            position: 'fixed',
+            right: '20px',
+            bottom: '20px',
+
+            }} >
+          <ContentAdd />
+          </FloatingActionButton>
+        </a>
+      </div>
+    </div>)
+  // }
 }
+
+export default ItemCardList;

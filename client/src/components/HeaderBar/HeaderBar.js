@@ -71,7 +71,9 @@ export default class HeaderBar extends Component {
             <RaisedButton label="My Profile" primary={true} style={{
               marginRight: '18px'
             }}/>
-            <RaisedButton label="Logout" secondary={true} />
+            <a href="/login">
+              <RaisedButton label="Logout" secondary={true} />
+            </a>
           </div>
         }
         
