@@ -21,26 +21,27 @@ import Items from './components/ItemCardList';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 import NotFound from './containers/NotFound';
-// import ItemsContainer from './containers/Items/ItemsContainer';
 
 // injectTapEventPlugin();
 
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
+        <Router>
+        <Route exact path="/login" component={Login} />
+        </Router>
         <Layout>
             
             <Router>
-                {/* <div className="masonry-wrapper">
-                    <HeaderBar/> */}
-                    <Switch>
-                        <Route exact path="/login" component={Login} />
-                        <Route exact path="/" component={Items} />
-                        <Route exact path="/profile/:userid" component={Profile} />
-                        <Route exact path="/share" component={Share} />
-                        <Route path="*" component={NotFound} />
-                    </Switch>
-                {/* </div> */}
+             
+                <Switch>
+                    
+                    <Route exact path="/" component={Items} />
+                    <Route exact path="/profile/:userid" component={Profile} />
+                    <Route exact path="/share" component={Share} />
+                    <Route path="*" component={NotFound} />
+                </Switch>
+               
             </Router>
             
         </Layout>

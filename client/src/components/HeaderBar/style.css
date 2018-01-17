@@ -40,9 +40,7 @@
 }
 
 @media screen and (min-width: 600px){
-  /* .header-left{
-    display: inline-block;
-  } */
+
   .appHeader{
     height: 64px;
   }

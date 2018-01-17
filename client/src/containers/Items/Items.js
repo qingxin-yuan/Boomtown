@@ -27,9 +27,9 @@ const Items = ({items, users, tag, i}) => {
 
   // console.log(items);
 // if(tag !== undefined){
-    console.log(tag);
+    // console.log(tag);
     let newList = items.slice().filter(item=> item.tags === tag)
-    console.log(newList);
+    // console.log(newList);
 // }
 
 
