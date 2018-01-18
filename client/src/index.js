@@ -27,24 +27,23 @@ import NotFound from './containers/NotFound';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
+     
         <Router>
-        <Route exact path="/login" component={Login} />
+            <div>
+                <Route exact path="/login" component={Login} />
+                <Layout>
+                    <Switch>
+                        
+                        <Route exact path="/" component={Items} />
+                        <Route exact path="/profile/:userid" component={Profile} />
+                        <Route exact path="/share" component={Share} />
+                        <Route path="*" component={NotFound} />
+                    </Switch>
+                </Layout>
+            </div>
         </Router>
-        <Layout>
             
-            <Router>
-             
-                <Switch>
-                    
-                    <Route exact path="/" component={Items} />
-                    <Route exact path="/profile/:userid" component={Profile} />
-                    <Route exact path="/share" component={Share} />
-                    <Route path="*" component={NotFound} />
-                </Switch>
-               
-            </Router>
-            
-        </Layout>
+       
     </MuiThemeProvider>
 
 );

@@ -1,20 +1,22 @@
 import React, {Component} from 'react';
 import {Card } from 'material-ui/Card';
 import Gravatar from 'react-gravatar';
-import Items from '../Items';
+// import Masonry from 'react-masonry-component';
+import Items from '../Items/Items';
+
 
 import './style.css'
 
 
-export default class Profile extends Component {
-  render(){
+const Profile = ({items, users}) => {
+//  console.log(userid);
     return (
       <div className="profile"> 
         
         <Card style={{maxWidth: '800px', margin: '0 auto'}}>
           <div className="profile-header">
             <div className="user-info">
-              <h1>Mandi Wise</h1>
+              <h1></h1>
               <p>Learn'em good.</p>
             </div>
             {/* <div className="user-meta"> */}
@@ -27,13 +29,11 @@ export default class Profile extends Component {
           {/* </div> */}
         </Card>
         
-      <Items />
+      <Items items={items} users={users}/>
       </div>
     )
-
-    
-    
-    
    
-  }
+
 }
+
+export default Profile;

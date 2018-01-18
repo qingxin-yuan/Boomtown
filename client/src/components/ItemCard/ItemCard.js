@@ -1,6 +1,7 @@
 import './style.css'
 
 import React from 'react';
+import {BroswerRouter as Router, Link} from 'react-router-dom';
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
@@ -23,12 +24,12 @@ const ItemCard = ({item, borrower}) => (
       <img src={item.imageurl} alt="" />
     </CardMedia>
 
-    <a href={"/profile/"+item.itemowner.id}>
+    <Link to={"/profile/"+item.itemowner.id}>
     <CardHeader 
       avatar={<Gravatar email={item.itemowner.email} />}
       title={item.itemowner.fullname}
       subtitle={moment(item.created).fromNow()} />
-    </a>
+    </Link>
     <CardTitle title={item.title} subtitle={item.tags.join(", ")} />
     <CardText>
      {item.description}
