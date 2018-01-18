@@ -65,19 +65,6 @@ export default Items;
 
 
 
-  // JSON.stringify(list)
-  // console.log(items);
-  // return <ItemCard/>
-// export default class Items extends Component {
-//   render(){
-//     return null;
-//   }}
-    
-//     // <ItemCard itemList={this.state.itemList}/>
-  
-//   }
-// }
-
 //specify what type of props are passing in
 Items.propTypes = {
   items: PropTypes.array.isRequired

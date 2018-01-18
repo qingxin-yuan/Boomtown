@@ -8,9 +8,11 @@ import {
     BrowserRouter as Router, 
     Route,
     Switch,
-    Link,
-    Redirect
+    
+    // Redirect
   } from 'react-router-dom';
+import {Provider} from 'react-redux';
+import store from './redux/store';
 
 import './index.css';
 import muiTheme from './config/theme';
@@ -28,6 +30,7 @@ import NotFound from './containers/NotFound';
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
      
+     <Provider store={store}>
         <Router>
             <div>
                 <Route exact path="/login" component={Login} />
@@ -42,7 +45,7 @@ const Boomtown = () => (
                 </Layout>
             </div>
         </Router>
-            
+    </Provider>
        
     </MuiThemeProvider>
 
