@@ -16,15 +16,15 @@ const Profile = ({items, users}) => {
         <Card style={{maxWidth: '800px', margin: '0 auto'}}>
           <div className="profile-header">
             <div className="user-info">
-              <h1></h1>
-              <p>Learn'em good.</p>
+              <h1>{users.fullname}</h1>
+              <p>{users.bio}</p>
             </div>
             {/* <div className="user-meta"> */}
               <div className="user-stats">
                 <p><span>9</span> Items shared</p>
                 <p><span>3</span> Items borrowed</p>
               </div>
-            <Gravatar email="mandi@redacademy.com" className = "user-gravatar" size={170}/>
+            <Gravatar email={users.email} className = "user-gravatar" size={170}/>
             </div>
           {/* </div> */}
         </Card>

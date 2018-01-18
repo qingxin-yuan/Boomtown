@@ -34,11 +34,11 @@ export default class ProfileContainer extends Component {
                 
             });
             let items = itemsList.filter(item=> {return item.itemowner.id === this.state.userid});
+            let users = userList.filter(item=>{return item.id === this.state.userid})[0];
+        //   console.log(userList);
             
-          console.log(items);
-            
-            this.setState({ items: items, users: userList});
-            // console.log(userList);
+            this.setState({ items: items, users: users});
+            console.log(this.state.users);
 
         });
     }
