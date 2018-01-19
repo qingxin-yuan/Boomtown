@@ -52,6 +52,7 @@ export default class HeaderBar extends Component {
 
   render() {
     const {values} = this.state;
+    console.log(this.state.values);
     return (
 
       <AppBar
