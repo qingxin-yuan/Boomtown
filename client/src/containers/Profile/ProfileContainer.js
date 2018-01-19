@@ -22,11 +22,6 @@ class ProfileContainer extends Component {
           }
           else {
  
-            // const profileItems = this.props.items.filter(item=> {return item.itemowner.id === this.props.match.params.userid});
-            
-            // const profileUser = profileItems[0].itemowner;
-
-            // console.log(profileItems);
             return <Profile items={this.props.items} user={this.props.items[0].itemowner}/>;
       
  

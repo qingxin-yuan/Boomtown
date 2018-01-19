@@ -16,9 +16,7 @@ class ItemsContainer extends Component {
 
 
     render() {
-        // if(this.props.tag !== undefined){
-            // console.log(this.props.tag);
-        // }
+       
     
         if ( this.props.isLoading) return <p>loading...</p>
       //TODO: finish filtering

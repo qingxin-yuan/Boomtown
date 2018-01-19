@@ -44,8 +44,8 @@ export const fetchItemsAndUser = (userid) => (dispatch) =>{
 
     dispatch(getItems(itemsList));
   })
-  .catch(error => dispatch(getItemsError(error.message)));
 
+  .catch(error => dispatch(getItemsError(error.message)));
 
 };
 

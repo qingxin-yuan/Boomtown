@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
@@ -9,12 +10,15 @@ import AppBar from 'material-ui/AppBar';
 import logo from '../../images/boomtown-logo.svg';
 import Items from '../../containers/Items';
 
+import {getFilterTags} from '../../redux/modules/items';
+
+
 import './style.css'
 
 
 const tags = ["Electronics","Household Items", "Musical Insteuments", "Physical Media", "Recreational Equipment", "Sporting Goods", "Tools"];
 
-export default class HeaderBar extends Component {
+class HeaderBar extends Component {
 
   constructor(props) {
     super(props);
@@ -28,11 +32,9 @@ export default class HeaderBar extends Component {
 
   handleChange = (event, index, values) => {
 
-    this.setState({values})
+    this.props.dispatch(getFilterTags(values));
 
-    // console.log(this.state.tags[index]);
-
-    // return <Items tag={tags[index]}/>
+    this.setState({values});  
     
   };
     
@@ -49,10 +51,10 @@ export default class HeaderBar extends Component {
   }
 
 
-
   render() {
     const {values} = this.state;
     console.log(this.state.values);
+  
     return (
 
       <AppBar
@@ -87,3 +89,15 @@ export default class HeaderBar extends Component {
     );
   }
 }
+
+
+const mapStateToProps = (state) =>({
+  isLoading: state.items.isLoading,
+  items: state.items.items,
+
+  error: state.items.error,
+  tags: state.items.tags,
+
+});
+
+export default connect(mapStateToProps)(HeaderBar);
