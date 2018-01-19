@@ -28,8 +28,8 @@ export const fetchItemsAndUser = () => (dispatch) =>{
   return Promise.all(
     ['http://localhost:4000/items', 'http://localhost:4000/users'].map(url=>
   fetch(url).then(response=>response.json()),
-  ),
-)
+    ),
+  )
 
   .then(json=>{
     const [itemsList, userList] = json;
@@ -44,7 +44,7 @@ export const fetchItemsAndUser = () => (dispatch) =>{
 
     dispatch(getItems(itemsList));
   })
-  .catch(error => dispatch(getItemsError(error)))
+  .catch(error => dispatch(getItemsError(error.message)));
 
 
 };
@@ -56,7 +56,7 @@ export default (
   state ={    //initial state
     isLoading: false,
     items: [],
-    users: [],
+    
     error: '',
   }, 
   action

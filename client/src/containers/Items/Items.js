@@ -8,7 +8,7 @@ import Masonry from 'react-masonry-component';
 import './style.css'
 
 
-const overlay = (items, users)=>{
+const overlay = (items)=>{
 
   // let borrower = items.borrower?users.find(el=>el.id===items.borrower):''
   // return borrower.fullname;
@@ -19,7 +19,7 @@ const overlay = (items, users)=>{
 
 
 
-const Items = ({items, users, tag, i}) => {
+const Items = ({items, tag, i}) => {
   
 
   // tags = items.tags;
@@ -40,11 +40,11 @@ return (
   
   {
     
-    (items!== undefined && users !== undefined)?items.map(item=>
+    (items!== undefined)?items.map(item=>
   // <Masonry className="grid-item">
     <li className="masonry-item" key={item.id}>
 
-    <ItemCard key={item.id} item={item} borrower={overlay(item, users)} />
+    <ItemCard key={item.id} item={item} borrower={overlay(item)} />
     
     </li>
 
