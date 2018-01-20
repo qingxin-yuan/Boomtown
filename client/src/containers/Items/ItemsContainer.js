@@ -20,7 +20,7 @@ class ItemsContainer extends Component {
     
         if ( this.props.isLoading) return <p>loading...</p>
       //TODO: finish filtering
-        return <Items items={this.props.items} tag={this.props.tag} i={this.props.index}/>;
+        return <Items items={this.props.filteredItems} tag={this.props.tag} i={this.props.index}/>;
     }
 }
 
@@ -28,7 +28,7 @@ class ItemsContainer extends Component {
 const mapStateToProps = (state) => ({       //convert states into props to pass in react class
     isLoading: state.items.isLoading,
     items: state.items.items,
-
+    filteredItems: state.items.filteredItems,
     error: state.items.error,
 });
 

@@ -31,13 +31,21 @@ class HeaderBar extends Component {
   }
 
   handleChange = (event, index, values) => {
+    // console.log(this.props.items);
 
-    this.props.dispatch(getFilterTags(values));
+    this.props.dispatch(getFilterTags(values, this.props.items));
+
 
     this.setState({values});  
     
   };
-    
+
+  // componentDidUpdate(){
+  //   this.props.dispatch(filterItems(this.props.tags, this.props.items));
+  // }
+
+
+
   menuItems(values) {
     return tags.map((tag) => (
       <MenuItem
@@ -53,7 +61,7 @@ class HeaderBar extends Component {
 
   render() {
     const {values} = this.state;
-    console.log(this.state.values);
+    // console.log(this.state.values);
   
     return (
 
@@ -94,7 +102,7 @@ class HeaderBar extends Component {
 const mapStateToProps = (state) =>({
   isLoading: state.items.isLoading,
   items: state.items.items,
-
+  filteredItems: state.items.filteredItems,
   error: state.items.error,
   tags: state.items.tags,
 
