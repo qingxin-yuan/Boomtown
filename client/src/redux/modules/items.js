@@ -21,9 +21,9 @@ const getItemsError = (error) => ({
   payload: error,
 })
 
-export const getFilterTags = (tags, items) =>({
+export const getFilterTags = (tags) =>({
   type: GET_FILTER_TAGS,
-  payload: {tags,items}
+  payload: tags,
 });
 
 //ASYNC ACTION CREATOR
@@ -54,33 +54,6 @@ export const fetchItemsAndUser = () => (dispatch) =>{
 
 };
 
-//FILTER ACTION CREATOR
-const filterItems = (tags, items) =>{
-  // console.log(tags,items);
-  if (tags.length === 0 ) {
-    // dispatch(getItems(items));
-    return items;
-    
-  }
-  else{
-    let result = [];
- 
-    items.forEach(item=>{
-
-      tags.forEach(filterTag=>{
-     
-          if (item.tags.indexOf(filterTag) > -1) {
-            result.push(item);
-          }
-      })
-    })
- 
-    return result;
-  
-  
-  }
-}
-
 
 
 //REDUCER
@@ -88,7 +61,6 @@ export default (
   state ={    //initial state
     isLoading: false,
     items: [],
-    filteredItems: [],
     tags: [],
     error: '',
   }, 
@@ -97,13 +69,13 @@ export default (
   switch(action.type){
 
     case GET_FILTER_TAGS: {
-      const filteredItems = filterItems(action.payload.tags.length? action.payload.tags : [],action.payload.items);
-      console.log(action.payload.tags,action.payload.items, filteredItems);
+      
+      // console.log(action.payload.tags,action.payload.items, filteredItems);
       return {
         ...state,
-        tags: action.payload.tags,
-        items: action.payload.items, 
-        filteredItems,
+        tags: action.payload,
+        // items: action.payload.items, 
+        // filteredItems,
       }
     }
     case GET_ITEMS_LOADING: {
@@ -118,7 +90,7 @@ export default (
       return {
         ...state,
         items: action.payload,
-        filteredItems: action.payload,
+        // filteredItems: action.payload,
         isLoading: false,
         error: '',
       }

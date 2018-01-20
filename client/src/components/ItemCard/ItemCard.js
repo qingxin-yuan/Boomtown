@@ -9,7 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import moment from 'moment';
 
-const ItemCard = ({item, borrower}) => (
+const ItemCard = ({item}) => (
   
   <Card>
     

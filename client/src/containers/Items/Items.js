@@ -8,31 +8,12 @@ import Masonry from 'react-masonry-component';
 import './style.css'
 
 
-const overlay = (items)=>{
-
-  // let borrower = items.borrower?users.find(el=>el.id===items.borrower):''
-  // return borrower.fullname;
-  // item.available?<CardTitle title="Unavailable" />:''
-  // (borrower)?<CardTitle title={"lent to "+borrower} />:''
-  // if ()
-}
 
 
 
-const Items = ({items, tag, i}) => {
+
+const Items = ({items}) => {
   
-
-  // tags = items.tags;
-  // items = items.filter(item=>(item.tags[0]||item.tags[1])===this.props.tags[i])
-
-  // console.log(items);
-// if(tag !== undefined){
-    // console.log(tag);
-    let newList = items.slice().filter(item=> item.tags === tag)
-    // console.log(newList);
-// }
-
-
 
 return (
   
@@ -44,7 +25,7 @@ return (
   // <Masonry className="grid-item">
     <li className="masonry-item" key={item.id}>
 
-    <ItemCard key={item.id} item={item} borrower={overlay(item)} />
+    <ItemCard key={item.id} item={item}/>
     
     </li>
 
@@ -52,8 +33,6 @@ return (
   ):''}
 
  </Masonry>
-
-
 
 
 )

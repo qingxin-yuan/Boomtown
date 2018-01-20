@@ -33,7 +33,7 @@ class HeaderBar extends Component {
   handleChange = (event, index, values) => {
     // console.log(this.props.items);
 
-    this.props.dispatch(getFilterTags(values, this.props.items));
+    this.props.dispatch(getFilterTags(values));
 
 
     this.setState({values});  
@@ -102,7 +102,7 @@ class HeaderBar extends Component {
 const mapStateToProps = (state) =>({
   isLoading: state.items.isLoading,
   items: state.items.items,
-  filteredItems: state.items.filteredItems,
+  // filteredItems: state.items.filteredItems,
   error: state.items.error,
   tags: state.items.tags,
 
