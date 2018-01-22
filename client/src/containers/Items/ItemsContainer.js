@@ -14,7 +14,6 @@ class ItemsContainer extends Component {
         this.props.dispatch(fetchItemsAndUser());
     }
 
-    
     render() {
        
     
@@ -44,7 +43,7 @@ export default connect(mapStateToProps)(ItemsContainer);
 //or ItemContainer.Proptypes={}
 
 
-//FILTER ACTION CREATOR
+//filter function
 const filterItems = (tags, items) =>{
     // console.log(tags,items);
     if (tags.length ===  0 || tags===[]) {
