@@ -19,14 +19,14 @@ const Profile = ({items, user}) => {
               <h1>{user.fullname}</h1>
               <p>{user.bio}</p>
             </div>
-            {/* <div className="user-meta"> */}
+          
               <div className="user-stats">
-                <p><span>9</span> Items shared</p>
+                <p><span>{items.length}</span> Items shared</p>
                 <p><span>3</span> Items borrowed</p>
               </div>
             <Gravatar email={user.email} className = "user-gravatar" size={170}/>
             </div>
-          {/* </div> */}
+         
         </Card>
         
       <Items items={items} />

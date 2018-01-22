@@ -9,16 +9,12 @@ import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import moment from 'moment';
 
-const ItemCard = ({item}) => (
+const ItemCard = ({item, overlayText}) => (
   
   <Card>
     
     <CardMedia
-      overlay={
-      
-        item.available?<CardTitle title="Unavailable" />:''
-       
-      }
+      overlay={ overlayText? <CardTitle title={overlayText} /> : "" }
     >
 
       <img src={item.imageurl} alt="" />

@@ -40,7 +40,9 @@ export const fetchItemsAndUser = (userid) => (dispatch) =>{
 
       item.itemowner = userList.slice().find(
         user=>user.id===item.itemowner
-      )});
+      )
+      item.borrower? item.borrowerName = userList.slice().find(user=>user.id===item.borrower).fullname : item.borrowerName =null;
+    });
 
     dispatch(getItems(itemsList));
   })

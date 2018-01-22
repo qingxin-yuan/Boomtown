@@ -32,7 +32,7 @@ const HeaderBar = (match) =>{
    
         iconElementLeft={
           <div className="header-left">
-          
+
             <Link to="/"><img src={logo} alt="boomtown logo"/></Link>
           
            
@@ -44,9 +44,11 @@ const HeaderBar = (match) =>{
 
         iconElementRight={
           <div className="header-right">
-            <RaisedButton label="My Profile" primary={true} style={{
-              marginRight: '18px'
-            }}/>
+            <Link to="/profile/eEvh1WUF5nb5eeUksUQb3Ph0kOU2">
+              <RaisedButton label="My Profile" primary={true} style={{
+                marginRight: '18px'
+              }}/>
+            </Link>
             <Link to="/login">
               <RaisedButton label="Logout" secondary={true} />
             </Link>

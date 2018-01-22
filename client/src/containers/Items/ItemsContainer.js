@@ -22,7 +22,7 @@ class ItemsContainer extends Component {
       //TODO: finish filtering
 
       let filteredItems = filterItems(this.props.tags, this.props.items);
-        console.log(this.props.items);
+        console.log(filteredItems);
         // filteredItems? filteredItems : this.props.items;
 
         return <Items items={filteredItems} />;

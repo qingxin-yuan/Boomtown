@@ -39,6 +39,8 @@ export const fetchItemsAndUser = () => (dispatch) =>{
 
   .then(json=>{
     const [itemsList, userList] = json;
+    let overlay = '';
+
 
     console.log(itemsList, userList);
 
@@ -46,7 +48,11 @@ export const fetchItemsAndUser = () => (dispatch) =>{
 
       item.itemowner = userList.slice().find(
         user=>user.id===item.itemowner
-      )});
+      )
+
+      item.borrower? item.borrowerName = userList.slice().find(user=>user.id===item.borrower).fullname : item.borrowerName =null;
+    
+    });
 
     dispatch(getItems(itemsList));
   })
