@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import HeaderBar from '../HeaderBar';
+import Footer from '../Footer';
 
 import './styles.css';
 
@@ -12,7 +13,9 @@ const Layout = ({ children }) => (
         <div className="appContent">
             {children}
         </div>
-        {/* And a footer here, but not on the login route... */}
+        <div className="appFooter">
+            <Footer />
+        </div>
     </div>
 );
 
