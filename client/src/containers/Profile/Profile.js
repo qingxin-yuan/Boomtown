@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+
 import {Card } from 'material-ui/Card';
 import Gravatar from 'react-gravatar';
-// import Masonry from 'react-masonry-component';
+
 import Items from '../Items/Items';
 
 
@@ -22,7 +24,7 @@ const Profile = ({items, user}) => {
           
               <div className="user-stats">
                 <p><span>{items.length}</span> Items shared</p>
-                <p><span>3</span> Items borrowed</p>
+                <p><span>3</span> Items borrowed</p>  
               </div>
             <Gravatar email={user.email} className = "user-gravatar" size={170}/>
             </div>
@@ -37,3 +39,8 @@ const Profile = ({items, user}) => {
 }
 
 export default Profile;
+
+Profile.propTypes = {
+  items: PropTypes.array.isRequired,
+  user: PropTypes.object.isRequired,
+}

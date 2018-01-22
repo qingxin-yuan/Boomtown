@@ -1,13 +1,15 @@
-import './style.css'
-
 import React from 'react';
 import {BroswerRouter as Router, Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
+
 import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import FlatButton from 'material-ui/FlatButton';
 import Gravatar from 'react-gravatar';
 import moment from 'moment';
+
+import './style.css'
 
 const ItemCard = ({item, overlayText}) => (
   
@@ -42,8 +44,7 @@ const ItemCard = ({item, overlayText}) => (
 export default ItemCard;
 
 
-// export default class ItemCard extends Component{
-//   render(){
-//     return <div> ItemCard </div>
-//   }
-// }
+ItemCard.propTypes = {
+  item: PropTypes.object.isRequired,
+  overlayText: PropTypes.string.isRequired,
+}

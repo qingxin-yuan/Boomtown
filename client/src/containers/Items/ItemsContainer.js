@@ -43,6 +43,7 @@ export default connect(mapStateToProps)(ItemsContainer);
 //or ItemContainer.Proptypes={}
 
 
+
 //filter function
 const filterItems = (tags, items) =>{
     // console.log(tags,items);
