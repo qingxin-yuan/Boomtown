@@ -24,7 +24,7 @@ const Profile = ({items, user}) => {
           
               <div className="user-stats">
                 <p><span>{items.length}</span> Items shared</p>
-                <p><span>3</span> Items borrowed</p>  
+                <p><span>{user.borrowed.length}</span> Items borrowed</p>  
               </div>
             <Gravatar email={user.email} className = "user-gravatar" size={170}/>
             </div>

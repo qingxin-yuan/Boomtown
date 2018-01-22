@@ -21,7 +21,7 @@ class ProfileContainer extends Component {
             return false;
           }
           else {
- 
+            console.log(this.props.items);
             return <Profile items={this.props.items} user={this.props.items[0].itemowner}/>;
       
  

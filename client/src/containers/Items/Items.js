@@ -16,7 +16,7 @@ const overlay = (item) =>{
 
   if ((item.itemowner.id === "eEvh1WUF5nb5eeUksUQb3Ph0kOU2") && (!item.available)){
    
-  return "Lent to" + item.borrowerName;
+  return "Lent to " + item.borrowerName;
 
   }
 

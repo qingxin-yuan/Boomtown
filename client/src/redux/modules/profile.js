@@ -26,22 +26,24 @@ export const fetchItemsAndUser = (userid) => (dispatch) =>{
   dispatch(getItemsLoading());  //set loading icon before fetching the data
 
   return Promise.all(
-    [`http://localhost:4000/items/?itemowner=${userid}`, 'http://localhost:4000/users'].map(url=>
+    [`http://localhost:4000/items/?itemowner=${userid}`, 'http://localhost:4000/users', `http://localhost:4000/items/?borrower=${userid}`].map(url=>
   fetch(url).then(response=>response.json()),
     ),
   )
 
   .then(json=>{
-    const [itemsList, userList] = json;
+    const [itemsList, userList, itemsBorrowed] = json;
 
-    console.log(itemsList, userList);
+    console.log(itemsList, userList, itemsBorrowed);
 
     itemsList.map(item => {
 
       item.itemowner = userList.slice().find(
         user=>user.id===item.itemowner
-      )
+      );
+      item.itemowner.borrowed = itemsBorrowed;
       item.borrower? item.borrowerName = userList.slice().find(user=>user.id===item.borrower).fullname : item.borrowerName =null;
+      
     });
 
     dispatch(getItems(itemsList));
