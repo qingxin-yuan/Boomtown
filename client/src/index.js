@@ -4,14 +4,14 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import registerServiceWorker from './registerServiceWorker';
 // import injectTapEventPlugin from 'react-tap-event-plugin';
 
-import { 
-    BrowserRouter as Router, 
+import {
+    BrowserRouter as Router,
     Route,
-    Switch,
-    
+    Switch
+
     // Redirect
-  } from 'react-router-dom';
-import {Provider} from 'react-redux';
+} from 'react-router-dom';
+import { Provider } from 'react-redux';
 import store from './redux/store';
 
 import './index.css';
@@ -26,29 +26,28 @@ import NotFound from './containers/NotFound';
 
 // injectTapEventPlugin();
 
-
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
-     
-     <Provider store={store}>
-        <Router>
-            <div>
-                <Route exact path="/login" component={Login} />
-                <Layout>
-                    <Switch>
-                        
-                        <Route exact path="/" component={Items} />
-                        <Route exact path="/profile/:userid" component={Profile} />
-                        <Route exact path="/share" component={Share} />
-                        <Route path="*" component={NotFound} />
-                    </Switch>
-                </Layout>
-            </div>
-        </Router>
-    </Provider>
-       
+        <Provider store={store}>
+            <Router>
+                <div>
+                    <Route exact path="/login" component={Login} />
+                    <Layout>
+                        <Switch>
+                            <Route exact path="/" component={Items} />
+                            <Route
+                                exact
+                                path="/profile/:userid"
+                                component={Profile}
+                            />
+                            <Route exact path="/share" component={Share} />
+                            <Route path="*" component={NotFound} />
+                        </Switch>
+                    </Layout>
+                </div>
+            </Router>
+        </Provider>
     </MuiThemeProvider>
-
 );
 
 ReactDOM.render(<Boomtown />, document.getElementById('root'));

@@ -1,12 +1,9 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
-
-import './style.css'
+import './style.css';
 
 export default class Share extends Component {
-  render(){
-    return <div>Share</div>
-      
-    
-  }
+    render() {
+        return <div>Share</div>;
+    }
 }
