@@ -1,4 +1,6 @@
 const express = require("express");
+const cors = require('cors');
+
 const bodyParser = require("body-parser");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 const schema = require("./api/schema");
@@ -8,6 +10,9 @@ const app = express();
 const GQL_PORT = process.env.PORT; // POST# is defined in the command line
 
 
+
+//CORS middleware
+app.use("*", cors());
 
 /*********TWO MIDDLEWARE*************/ 
 // Where we will send all of our GraphQL requests

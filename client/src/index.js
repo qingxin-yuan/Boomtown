@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
+import client from './config/apolloClient';
 
 import store from './redux/store';
 
@@ -21,23 +23,25 @@ import './index.css';
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
-            <Router>
-                <div>
-                    <Route exact path="/login" component={Login} />
-                    <Layout>
-                        <Switch>
-                            <Route exact path="/" component={Items} />
-                            <Route
-                                exact
-                                path="/profile/:userid"
-                                component={Profile}
-                            />
-                            <Route exact path="/share" component={Share} />
-                            <Route path="*" component={NotFound} />
-                        </Switch>
-                    </Layout>
-                </div>
-            </Router>
+            <ApolloProvider client={client}>
+                <Router>
+                    <div>
+                        <Route exact path="/login" component={Login} />
+                        <Layout>
+                            <Switch>
+                                <Route exact path="/" component={Items} />
+                                <Route
+                                    exact
+                                    path="/profile/:userid"
+                                    component={Profile}
+                                />
+                                <Route exact path="/share" component={Share} />
+                                <Route path="*" component={NotFound} />
+                            </Switch>
+                        </Layout>
+                    </div>
+                </Router>
+            </ApolloProvider>
         </Provider>
     </MuiThemeProvider>
 );

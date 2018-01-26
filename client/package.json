@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apollo-client-preset": "^1.0.6",
     "concurrently": "^3.5.0",
+    "graphql": "^0.12.3",
+    "graphql-tag": "^2.6.1",
     "json-server": "^0.12.0",
     "material-ui": "^0.19.2",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
     "react": "^16.0.0",
+    "react-apollo": "^2.0.4",
     "react-dom": "^16.0.0",
     "react-gravatar": "^2.6.3",
     "react-masonry-component": "^6.0.2",
@@ -26,7 +30,6 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.0.1",
     "react-scripts": "^1.0.14"
-    
   },
   "scripts": {
     "start": "react-scripts start",
