@@ -20,7 +20,7 @@ const typeDefs = `
     id: ID
     title: String
     itemowner: User
-    borrower: String
+    borrower: User
     created: String
     imageurl: String
     description: String

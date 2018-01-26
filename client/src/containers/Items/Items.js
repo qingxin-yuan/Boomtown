@@ -13,7 +13,7 @@ const Items = ({ items }) => {
             item.itemowner.id === 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
             !item.available
         ) {
-            return `Lent to ${item.borrowerName}`;
+            return `Lent to ${item.borrower.fullname}`;
         } else if (
             item.itemowner.id !== 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
             !item.available

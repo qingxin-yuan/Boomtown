@@ -1,39 +1,5 @@
 const fetch = require("node-fetch");
 
-const Items = [
-  {
-    id: "1",
-    imageurl: "www.google.ca",
-    title: "cool item",
-    description: "cool",
-    available: true,
-    borrowerid: "1",
-    ownerid: "2"
-  },
-  {
-    id: "2",
-    imageurl: "www.google.ca",
-    title: "cool item 2",
-    description: "cool too",
-    available: true,
-    borrowerid: "2",
-    ownerid: "1"
-  }
-];
-const Users = [
-  {
-    id: "1",
-    email: "test@test.com",
-    name: "monkey",
-    imageurl: "www.google.ca"
-  },
-  {
-    id: "2",
-    email: "test2@test.com",
-    name: "chimp",
-    imageurl: "www.google.ca"
-  }
-];
 
 const resolveFunctions = {
   Query: {
