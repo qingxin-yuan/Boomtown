@@ -37,23 +37,24 @@ export const fetchItemsAndUser = () => dispatch => {
 
         .then(json => {
             const [itemsList, userList] = json;
-            const overlay = '';
+            // const overlay = '';
 
             console.log(itemsList, userList);
 
-            itemsList.map(item => {
+            const newItemsList = itemsList.map(item => {
                 item.itemowner = userList
                     .slice()
                     .find(user => user.id === item.itemowner);
 
-                item.borrower
+                item.borrowerName = item.borrower
                     ? (item.borrowerName = userList
                         .slice()
                         .find(user => user.id === item.borrower).fullname)
                     : (item.borrowerName = null);
+                return item;
             });
 
-            dispatch(getItems(itemsList));
+            dispatch(getItems(newItemsList));
         })
         .catch(error => dispatch(getItemsError(error.message)));
 };

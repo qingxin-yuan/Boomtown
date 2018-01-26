@@ -33,12 +33,13 @@ const ItemCard = ({ item, overlayText }) => (
                 subtitle={moment(item.created).fromNow()}
             />
         </Link>
-        <CardTitle title={item.title} subtitle={item.tags.join(', ')} />
+        <CardTitle
+            title={item.title}
+            subtitle={item.tags.map(tag => `${tag.title}`).join(', ')}
+        />
         <CardText>{item.description}</CardText>
 
-        {/* <FloatingActionButton style={{backgroundColor: 'black'}}>
-    <ContentAdd />
-    </FloatingActionButton> */}
+
     </Card>
 );
 

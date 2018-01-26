@@ -36,19 +36,21 @@ export const fetchItemsAndUser = userid => dispatch => {
 
             console.log(itemsList, userList, itemsBorrowed);
 
-            itemsList.map(item => {
+            const newItemsList = itemsList.map(item => {
                 item.itemowner = userList
                     .slice()
                     .find(user => user.id === item.itemowner);
                 item.itemowner.borrowed = itemsBorrowed;
-                item.borrower
+                item.borrowerName = item.borrower
                     ? (item.borrowerName = userList
                         .slice()
                         .find(user => user.id === item.borrower).fullname)
                     : (item.borrowerName = null);
+
+                return item;
             });
 
-            dispatch(getItems(itemsList));
+            dispatch(getItems(newItemsList));
         })
 
         .catch(error => dispatch(getItemsError(error.message)));

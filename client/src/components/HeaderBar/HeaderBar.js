@@ -1,14 +1,7 @@
 import React from 'react';
 // import { connect } from 'react-redux';
-import {
-    // BrowserRouter as Router,
-    Route,
-    Link
-    // Redirect
-} from 'react-router-dom';
+import { Route, Link } from 'react-router-dom';
 
-// import SelectField from 'material-ui/SelectField';
-// import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
@@ -33,7 +26,7 @@ const HeaderBar = () => (
         }
         iconElementRight={
             <div className="header-right">
-                <Link to="/profile/eEvh1WUF5nb5eeUksUQb3Ph0kOU2">
+                <Link to="/profile/LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2">
                     <RaisedButton
                         label="My Profile"
                         primary

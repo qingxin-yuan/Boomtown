@@ -6,6 +6,26 @@ import { fetchItemsAndUser } from '../../redux/modules/items';
 
 import './style.css';
 
+// filter function
+const filterItems = (tags, items) => {
+    // console.log(tags,items);
+    const result = [];
+    if (tags.length === 0 || tags === []) {
+        // dispatch(getItems(items));
+        return items;
+    }
+    items.forEach(item => {
+        tags.forEach(filterTag => {
+            // console.log(filterTag);
+            if (item.tags.map(tag => tag.title).indexOf(filterTag) > -1) {
+                result.push(item);
+            }
+        });
+    });
+
+    return result;
+};
+// };
 class ItemsContainer extends Component {
     // static propsType = {};
 
@@ -36,25 +56,3 @@ const mapStateToProps = state => ({
 });
 
 export default connect(mapStateToProps)(ItemsContainer);
-
-// or ItemContainer.Proptypes={}
-
-// filter function
-const filterItems = (tags, items) => {
-    // console.log(tags,items);
-    if (tags.length === 0 || tags === []) {
-        // dispatch(getItems(items));
-        return items;
-    }
-    const result = [];
-
-    items.forEach(item => {
-        tags.forEach(filterTag => {
-            if (item.tags.indexOf(filterTag) > -1) {
-                result.push(item);
-            }
-        });
-    });
-
-    return result;
-};

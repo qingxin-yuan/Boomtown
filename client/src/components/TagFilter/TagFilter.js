@@ -16,11 +16,11 @@ const tags = [
     'Tools'
 ];
 
-const TagFilter = () => {
+const TagFilter = (props) => {
     const handleChange = (event, index, values) => {
         // console.log(this.props.items);
 
-        this.props.dispatch(getFilterTags(values));
+        props.dispatch(getFilterTags(values));
 
         // this.setState({ values });
     };
@@ -40,12 +40,12 @@ const TagFilter = () => {
     return (
         <SelectField
             multiple
-            value={this.props.tags}
+            value={props.tags}
             onChange={handleChange}
             style={{ width: 256, marginLeft: '20px' }}
             hintText="Filter by Tag"
         >
-            {menuItems(this.props.tags)}
+            {menuItems(props.tags)}
         </SelectField>
     );
 };
@@ -55,7 +55,7 @@ const mapStateToProps = state => ({
     items: state.items.items,
     // filteredItems: state.items.filteredItems,
     error: state.items.error,
-    tags: state.items.tags
+    tags: state.items.tags,
 });
 
 export default connect(mapStateToProps)(TagFilter);

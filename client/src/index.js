@@ -1,20 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import registerServiceWorker from './registerServiceWorker';
-// import injectTapEventPlugin from 'react-tap-event-plugin';
-
-import {
-    BrowserRouter as Router,
-    Route,
-    Switch
-
-    // Redirect
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
+
 import store from './redux/store';
 
-import './index.css';
 import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
@@ -23,8 +14,9 @@ import Items from './components/ItemCardList';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 import NotFound from './containers/NotFound';
+import registerServiceWorker from './registerServiceWorker';
 
-// injectTapEventPlugin();
+import './index.css';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
