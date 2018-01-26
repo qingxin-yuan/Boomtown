@@ -10,12 +10,12 @@ const Items = ({ items }) => {
         // HARDCODED LOGGED IN USERID!!
 
         if (
-            item.itemowner.id === 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2' &&
+            item.itemowner.id === 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
             !item.available
         ) {
             return `Lent to ${item.borrowerName}`;
         } else if (
-            item.itemowner.id !== 'eEvh1WUF5nb5eeUksUQb3Ph0kOU2' &&
+            item.itemowner.id !== 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
             !item.available
         ) {
             return 'Unavailable';

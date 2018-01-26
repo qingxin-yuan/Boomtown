@@ -11,11 +11,12 @@ import MenuItem from 'material-ui/MenuItem';
  * A contrived example using a transition between steps
  */
 export default class Share extends Component {
-    constructor() {
-        super();
-        this.state = {
+    // constructor() {
+    //     super();
+        state = {
             finished: false,
             stepIndex: 0,
+            values: [],
             tags: [
                 'Electronics',
                 'Household Items',
@@ -26,9 +27,9 @@ export default class Share extends Component {
                 'Tools'
             ]
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.menuItems = this.menuItems.bind(this);
-    }
+        // this.handleChange = this.handleChange.bind(this);
+        // this.menuItems = this.menuItems.bind(this);
+    // }
     handleChange = (event, index, values) => {
         // console.log(this.props.items);
 
@@ -91,7 +92,7 @@ export default class Share extends Component {
     }
 
     render() {
-        const { finished, stepIndex } = this.state;
+        const { finished, stepIndex, values, tags } = this.state;
 
         return (
             <div style={{ maxWidth: 380, maxHeight: 500, margin: 'auto' }}>
@@ -103,6 +104,26 @@ export default class Share extends Component {
                                 We live in a visual culture. Upload an image of
                                 the item you're sharing.
                             </p>
+                            <RaisedButton
+                                label="Choose an Image"
+                                labelPosition="before"
+                                style={{ margin: '12' }}
+                                containerElement="label"
+                            >
+                                <input
+                                    type="file"
+                                    style={{
+                                        cursor: 'pointer',
+                                        position: 'absolute',
+                                        top: 0,
+                                        bottom: 0,
+                                        right: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        opacity: 0
+                                    }}
+                                />
+                            </RaisedButton>
                             {this.renderStepActions(0)}
                         </StepContent>
                     </Step>
@@ -133,12 +154,12 @@ export default class Share extends Component {
                             </p>
                             <SelectField
                                 multiple
-                                value={this.state.tags}
+                                value={values}
                                 onChange={this.handleChange}
                                 style={{ width: 256, marginLeft: '20px' }}
-                                hintText="Filter by Tag"
+                                hintText="Select Category Tags"
                             >
-                                {this.menuItems(this.state.tags)}
+                                {this.menuItems(this.state.values)}
                             </SelectField>
                             {this.renderStepActions(2)}
                         </StepContent>

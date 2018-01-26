@@ -9,7 +9,7 @@
         "title": "Household Items"
       }],
       "itemowner": "TyHcYnSocuOg6PmWQivgxerTLcq2",
-      "created": 1497558858,
+      "created": "2017-10-01 16:30:33.595884-07",
       "available": true,
       "borrower": null
     },
@@ -28,7 +28,7 @@
         }
       ],
       "itemowner": "dQg4HT262FYOiuOUIRj1xrXjOva2",
-      "created": 1497546618,
+      "created": "2017-10-01 16:29:49.31706-07",
       "available": false,
       "borrower": "LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2"
     },
@@ -42,7 +42,7 @@
         "title": "Musical Instruments"
       }],
       "itemowner": "LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2",
-      "created": 1497534618,
+      "created": "2017-09-30 16:28:43.506291-07",
       "available": true,
       "borrower": null
     },
@@ -56,7 +56,7 @@
         "title": "Tools"
       }],
       "itemowner": "dQg4HT262FYOiuOUIRj1xrXjOva2",
-      "created": 1497504600,
+      "created": "2017-09-29 16:28:24.616127-07",
       "available": true,
       "borrower": null
     },
@@ -70,7 +70,7 @@
         "title": "Physical Media"
       }],
       "itemowner": "TyHcYnSocuOg6PmWQivgxerTLcq2",
-      "created": 1497489120,
+      "created": "2017-09-28 16:27:45.620653-07",
       "available": false,
       "borrower": "dQg4HT262FYOiuOUIRj1xrXjOva2"
     },
@@ -84,7 +84,7 @@
         "title": "Physical Media"
       }],
       "itemowner": "TyHcYnSocuOg6PmWQivgxerTLcq2",
-      "created": 1497466800,
+      "created": "2017-09-27 16:27:13.965685-07",
       "available": true,
       "borrower": null
     },
@@ -98,7 +98,7 @@
         "title": "Musical Instruments"
       }],
       "itemowner": "LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2",
-      "created": 1497433740,
+      "created": "2017-09-26 16:26:31.884544-07",
       "available": true,
       "borrower": null
     },
@@ -117,7 +117,7 @@
         }
       ],
       "itemowner": "TyHcYnSocuOg6PmWQivgxerTLcq2",
-      "created": 1497406380,
+      "created": "2017-09-25 16:25:51.919316-07",
       "available": false,
       "borrower": "LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2"
     },
@@ -131,7 +131,7 @@
         "title": "Sporting Goods"
       }],
       "itemowner": "LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2",
-      "created": 1497398220,
+      "created": "2017-09-24 16:25:13.995983-07",
       "available": false,
       "borrower": "TyHcYnSocuOg6PmWQivgxerTLcq2"
     },
@@ -145,7 +145,7 @@
         "title": "Household Items"
       }],
       "itemowner": "TyHcYnSocuOg6PmWQivgxerTLcq2",
-      "created": 1497377580,
+      "created": "2017-09-23 16:24:21.397221-07",
       "available": true,
       "borrower": null
     }
