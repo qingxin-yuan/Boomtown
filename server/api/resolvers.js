@@ -49,8 +49,36 @@ const resolveFunctions = {
       return fetch("http://localhost:4000/items/?itemowner=" + user.id).then(
         response => response.json()
       );
+    },
+    async numborrowed(user) {
+      
+      const i= await fetch(`http://localhost:4000/items/?borrower=${user.id}`).then(
+        r => r.json()
+      )
+      return i.length;
+ 
+    }
+
+  
+  },
+  Mutation: {
+    // addItem(root, payload){
+
+      addItem(root, {newItem: {title}}){
+
+      // console.log(payload.newItem.title);
+      //TO DO: save the new item in database
+      // return {title: payload.newItem.title};
+      return {title};
+
+      //must return new item type, thanks to the mutation schema
+    },
+    updateItem(root, {newItem: {id, borrower: {fullname, email}}}){
+      console.log(email);
+      return {fullname, email};
     }
   }
+
 };
 
 module.exports = resolveFunctions;

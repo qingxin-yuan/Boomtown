@@ -23,7 +23,7 @@ const Profile = ({ items, user }) => (
                         <span>{items.length}</span> Items shared
                     </p>
                     <p>
-                        <span>{user.borrowed.length}</span> Items borrowed
+                        <span>{user.numborrowed}</span> Items borrowed
                     </p>
                 </div>
                 <Gravatar
