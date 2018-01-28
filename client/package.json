@@ -37,6 +37,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "json-server": "json-server --watch ../server/db.json --port 4000",
-    "dev": "concurrently \"react-scripts start\" \"json-server --watch ../server/db.json --port 4000\""
+    "dev": "concurrently \"react-scripts start\" \"PORT=3002 nodemon ../server/index.js\" \"json-server --watch ../server/db.json --port 4000\""
   }
 }
