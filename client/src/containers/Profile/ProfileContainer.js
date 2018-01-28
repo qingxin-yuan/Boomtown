@@ -18,25 +18,24 @@ const fetchUser = gql`
             bio
             shareditems {
                 id
-               title
-               itemowner{
-                   id
-                   email
-                   fullname
-
-               }
-               borrower{
-                   id
-                   fullname
-               }
-               created
-               imageurl
-               description
-               available
-               tags{
-                   id
-                   title
-               }
+                title
+                itemowner {
+                    id
+                    email
+                    fullname
+                }
+                borrower {
+                    id
+                    fullname
+                }
+                created
+                imageurl
+                description
+                available
+                tags {
+                    id
+                    title
+                }
             }
             numborrowed
         }
@@ -49,7 +48,7 @@ class ProfileContainer extends Component {
     // }
 
     render() {
-        const userid = this.props.match.params.userid;
+        // const userid = this.props.match.params.userid;
         // console.log(userid);
         // console.log(this.props);
         const { loading, user } = this.props.data;
@@ -58,11 +57,11 @@ class ProfileContainer extends Component {
         //     return false;
         // }
         // console.log(this.props.items);
-        return loading 
-        ? <p> loading....</p> 
-        : <Profile
-        items={user.shareditems} user={user}/>;
-        
+        return loading ? (
+            <p> loading....</p>
+        ) : (
+            <Profile items={user.shareditems} user={user} />
+        );
     }
 }
 // const mapStateToProps = state => ({
@@ -74,7 +73,7 @@ class ProfileContainer extends Component {
 // export default connect(mapStateToProps)(ProfileContainer);
 
 export default graphql(fetchUser, {
-    options: ( ownProps ) => ({
+    options: ownProps => ({
         variables: {
             id: ownProps.match.params.userid // e.g. from React Router!
         }

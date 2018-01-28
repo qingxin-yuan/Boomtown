@@ -12,6 +12,7 @@ import muiTheme from './config/theme';
 
 import Layout from './components/Layout';
 import Login from './containers/Login';
+// import TagFilter from './components/TagFilter';
 import Items from './components/ItemCardList';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
@@ -19,6 +20,7 @@ import NotFound from './containers/NotFound';
 import registerServiceWorker from './registerServiceWorker';
 
 import './index.css';
+// import HeaderBar from './components/HeaderBar/HeaderBar';
 
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>

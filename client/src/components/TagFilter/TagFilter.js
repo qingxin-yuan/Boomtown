@@ -5,8 +5,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
 import { getFilterTags } from '../../redux/modules/items';
+// import Items from '../../containers/Items';
 
-const tags = [
+const tagFields = [
     'Electronics',
     'Household Items',
     'Musical Instruments',
@@ -16,7 +17,8 @@ const tags = [
     'Tools'
 ];
 
-const TagFilter = (props) => {
+
+const TagFilter = props => {
     const handleChange = (event, index, values) => {
         // console.log(this.props.items);
 
@@ -27,7 +29,7 @@ const TagFilter = (props) => {
 
     const menuItems = values =>
         // let values =
-        tags.map(tag => (
+        tagFields.map(tag => (
             <MenuItem
                 key={tag}
                 insetChildren
@@ -36,17 +38,23 @@ const TagFilter = (props) => {
                 primaryText={tag}
             />
         ));
-
+    console.log(props);
+    // const items = props.tags
+    //     ? filterItems(props.tags, props.items)
+    //     : props.items;
+    // console.log(items);
     return (
-        <SelectField
-            multiple
-            value={props.tags}
-            onChange={handleChange}
-            style={{ width: 256, marginLeft: '20px' }}
-            hintText="Filter by Tag"
-        >
-            {menuItems(props.tags)}
-        </SelectField>
+        <div>
+            <SelectField
+                multiple
+                value={props.tags}
+                onChange={handleChange}
+                style={{ width: 256, marginLeft: '20px' }}
+                hintText="Filter by Tag"
+            >
+                {menuItems(props.tags)}
+            </SelectField>
+        </div>
     );
 };
 
@@ -55,7 +63,7 @@ const mapStateToProps = state => ({
     items: state.items.items,
     // filteredItems: state.items.filteredItems,
     error: state.items.error,
-    tags: state.items.tags,
+    tags: state.items.tags
 });
 
 export default connect(mapStateToProps)(TagFilter);

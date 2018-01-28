@@ -1,12 +1,15 @@
 const fetch = require("node-fetch");
 
 
+
+
 const resolveFunctions = {
   Query: {
     items() {
       return fetch("http://localhost:4000/items").then(response =>
         response.json()
       );
+
     },
 
     users() {
@@ -14,7 +17,8 @@ const resolveFunctions = {
         response.json()
       );
     },
-    user(root, { id }) {  //corresponds to id: ID in the schema
+    user(root, { id }) {
+      //corresponds to id: ID in the schema
 
       return fetch("http://localhost:4000/users/" + id).then(r => r.json());
     },
@@ -35,13 +39,12 @@ const resolveFunctions = {
         );
       } else return null;
     },
+
     async tags(item) {
-      
-      const i= await fetch(`http://localhost:4000/items/${item.id}`).then(
-        r => r.json()
-      )
+      const i = await fetch(`http://localhost:4000/items/${item.id}`).then(r =>
+        r.json()
+      );
       return i.tags;
- 
     }
   },
   User: {
@@ -51,34 +54,30 @@ const resolveFunctions = {
       );
     },
     async numborrowed(user) {
-      
-      const i= await fetch(`http://localhost:4000/items/?borrower=${user.id}`).then(
-        r => r.json()
-      )
+      const i = await fetch(
+        `http://localhost:4000/items/?borrower=${user.id}`
+      ).then(r => r.json());
       return i.length;
- 
     }
-
-  
   },
   Mutation: {
     // addItem(root, payload){
 
-      addItem(root, {newItem: {title}}){
-
+    addItem(root, { newItem: { title } }) {
       // console.log(payload.newItem.title);
       //TO DO: save the new item in database
       // return {title: payload.newItem.title};
-      return {title};
+      return { title };
 
       //must return new item type, thanks to the mutation schema
     },
-    updateItem(root, {newItem: {id, borrower: {fullname, email}}}){
+    updateItem(root, { newItem: { id, borrower: { fullname, email } } }) {
       console.log(email);
-      return {fullname, email};
+      return { fullname, email };
     }
   }
-
 };
+
+
 
 module.exports = resolveFunctions;
