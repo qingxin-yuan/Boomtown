@@ -77,7 +77,11 @@ class ItemsContainer extends Component {
         console.log(filteredItems);
 
         // console.log(this.props);
-        return loading ? <p>loading...</p> : <Items items={filteredItems || items} />;
+        return loading ? (
+            <p>loading...</p>
+        ) : (
+            <Items items={filteredItems || items} />
+        );
     }
 }
 

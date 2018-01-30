@@ -33,6 +33,6 @@ npm run dev
 
 Thanks RED Academy for design and materials preparation
 
-##Screenshots
+## Screenshots
 
 [Coming soon...]
