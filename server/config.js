@@ -6,10 +6,10 @@ module.exports = app =>{
   app.set('PGDATABASE', process.env.PGDATABASE || 'boomtowndb');
   app.set('PGHOST', process.env.PGHOST || 'localhost');
   app.set('PG_PORT', process.env.PG_PORT || '5432');
-   //graphQL Configs
-  app.set('GQL_PORT', process.env.GQL_PORT || '3002');
+  //  //graphQL Configs
+  // app.set('GQL_PORT', process.env.GQL_PORT || '3002');
   //Express Configs
-  app.set('PORT', process.env.PORT || '3000');
+  app.set('PORT', process.env.PORT || '3002');
   //Temperary JSON server
   app.set('JSON_PORT', '4000');
 }

@@ -12,14 +12,12 @@ const initResolvers = require('./api/resolvers');
 const config = require('./config');
 
 const app = express();
-
 config(app);
 
-const gqlSchema = makeExecutableSchema({
+const schema = makeExecutableSchema({
   typeDefs,
-  initResolvers(app)
+  resolvers: initResolvers(app)
 });
-
 
 
 //CORS middleware
@@ -27,7 +25,7 @@ app.use("*", cors());
 
 /*********TWO MIDDLEWARE*************/ 
 // Where we will send all of our GraphQL requests
-app.use("/graphql", bodyParser.json(), graphqlExpress({ gqlSchema }));
+app.use("/graphql", bodyParser.json(), graphqlExpress({ schema }));
 
 // A route for accessing the GraphiQL tool
 app.use(
@@ -41,5 +39,9 @@ app.use(
 
 
 app.listen(app.get('PORT'), () =>
-  console.log(`GraphQL is now running on http://localhost:${app.get('GQL_PORT')}/graphql`)
+{
+   console.log(app.get('PORT'));
+  console.log(`GraphQL is now running on http://localhost:${app.get('PORT')}/graphql`)
+}
+ 
 );

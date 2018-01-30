@@ -74,7 +74,7 @@ class ItemsContainer extends Component {
         // TODO: finish filtering
         const { loading, items } = this.props.data;
         const filteredItems = filterItems(this.props.tags, items);
-        console.log(filteredItems);
+        console.log(filteredItems, items);
 
         // console.log(this.props);
         return loading ? (

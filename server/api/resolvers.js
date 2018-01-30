@@ -2,8 +2,8 @@ const fetch = require("node-fetch");
 
 module.exports = app => {
 
-const ITEMS_URL = `http://localhost:${app.get(JSON_PORT)}/items`;
-const USERS_URL = `http://localhost:${app.get(JSON_PORT)}/users`;
+const ITEMS_URL = `http://localhost:${app.get('JSON_PORT')}/items`;
+const USERS_URL = `http://localhost:${app.get('JSON_PORT')}/users`;
 
 
 return {
@@ -23,28 +23,28 @@ return {
     user(root, { id }) {
       //corresponds to id: ID in the schema
 
-      return fetch(USERS_URL  + id).then(r => r.json());
+      return fetch(`${USERS_URL}/${id}`).then(r => r.json());
     },
     item(root, { id }) {
-      return fetch(ITEMS_URL+ id).then(r => r.json());
+      return fetch(`${ITEMS_URL}/${id}`).then(r => r.json());
     }
   },
   Item: {
     itemowner(item) {
-      return fetch(USERS_URL + item.itemowner).then(r =>
+      return fetch(`${USERS_URL}/${item.itemowner}`).then(r =>
         r.json()
       );
     },
     borrower(item) {
       if (item.borrower) {
-        return fetch(USERS_URL + item.borrower).then(r =>
+        return fetch(`${USERS_URL}/${item.borrower}`).then(r =>
           r.json()
         );
       } else return null;
     },
 
     async tags(item) {
-      const i = await fetch(ITEMS_URL + item.id).then(r =>
+      const i = await fetch(`${ITEMS_URL}/${item.id}`).then(r =>
         r.json()
       );
       return i.tags;
@@ -52,13 +52,13 @@ return {
   },
   User: {
     shareditems(user) {
-      return fetch(`${ITEMS_URL}?itemowner=${user.id}`).then(
+      return fetch(`${ITEMS_URL}/?itemowner=${user.id}`).then(
         response => response.json()
       );
     },
     async numborrowed(user) {
       const i = await fetch(
-        `${ITEMS_URL}?borrower=${user.id}`
+        `${ITEMS_URL}/?borrower=${user.id}`
       ).then(r => r.json());
       return i.length;
     }
