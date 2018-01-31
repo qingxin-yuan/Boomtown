@@ -12,6 +12,11 @@ module.exports = app => {
         response => response.json()
       );
     },
+    getNumItemsBorrowed(id){
+      return fetch(`${ITEMS_URL}/?borrower=${id}`).then(r =>
+        r.json()
+      );
+    },
     getItems(){
       return fetch(ITEMS_URL).then(response =>
         response.json()

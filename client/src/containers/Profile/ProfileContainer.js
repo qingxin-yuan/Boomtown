@@ -38,6 +38,7 @@ const fetchUser = gql`
                 }
             }
             numborrowed
+            
         }
     }
 `;

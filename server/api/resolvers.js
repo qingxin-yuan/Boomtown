@@ -1,51 +1,54 @@
 const fetch = require("node-fetch");
 
 module.exports = ({
-  jsonResource: { getSharedItems, getItems, getItem, getUser, getusers }
+  // jsonResource: { getSharedItems, getNumItemsBorrowed, getUser, getusers },
+  postgresResource: {getTags},
 }) => {
   return {
     Query: {
-      items() {
-        return getItems();
+      items(root, args, context) {
+        // console.log(args);
+        return context.loaders.getItems.load(args);
       },
 
-      users() {
-        return getUsers();
-      },
-      user(root, { id }) {
-        //corresponds to id: ID in the schema
+      // users(root, args, context) {
+      //   return getUsers();
+      // },
+      // user(root, { id }, context) {
+      //   //corresponds to id: ID in the schema
 
-        return getUser(id);
-      },
-      item(root, { id }) {
-        return getItem(id);
+      //   return getUser(id);
+      // },
+      item(root, { id }, context) {
+        return context.loaders.getItem.load(id);
       }
     },
     Item: {
-      itemowner(item) {
-        return getUser(item.itemowner);
-      },
-      borrower(item) {
-        if (item.borrower) {
-          return getUser(item.borrower);
-        } else return null;
-      },
+      // itemowner(item) {
+      //   return getUser(item.itemowner);
+      // },
+      // borrower(item) {
+      //   if (item.borrower) {
+      //     return getUser(item.borrower);
+      //   } else return null;
+      // },
 
-      async tags(item) {
-        const i = await getItem(item.id);
-        return i.tags;
+      tags(item) {
+        // console.log(args);
+        return getTags(item);
+        // return i.tags;
+        // console.log(i);
+        // return i.tags;
       }
     },
     User: {
       shareditems(user) {
-        return getItems(user.id);
+        return getSharedItems(user.id);
       },
-      // async numborrowed(user) {
-      //   const i = await fetch(`${ITEMS_URL}/?borrower=${user.id}`).then(r =>
-      //     r.json()
-      //   );
-      //   return i.length;
-      // }
+      async numborrowed(user) {
+        const i = await getNumItemsBorrowed(user.id);
+        return i.length;
+      }
     },
     Mutation: {
       // addItem(root, payload){

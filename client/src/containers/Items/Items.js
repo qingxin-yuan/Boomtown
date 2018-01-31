@@ -9,20 +9,20 @@ const Items = ({ items }) => {
     const overlay = item => {
         // HARDCODED LOGGED IN USERID!!
 
-        if (
-            item.itemowner.id === 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
-            !item.available
-        ) {
-            return `Lent to ${item.borrower.fullname}`;
-        } else if (
-            item.itemowner.id !== 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
-            !item.available
-        ) {
-            return 'Unavailable';
-        }
+        // if (
+        //     item.itemowner.id === 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
+        //     !item.available
+        // ) {
+        //     return `Lent to ${item.borrower.fullname}`;
+        // } else if (
+        //     item.itemowner.id !== 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
+        //     !item.available
+        // ) {
+        //     return 'Unavailable';
+        // }
         return '';
     };
-
+    // const overlay = '';
     return (
         <Masonry className="masonry" elementType="ul">
             {items !== undefined
