@@ -53,14 +53,14 @@ module.exports = async app => {
   //        });
   //     })
   //   },
-  getTags(item) {
-    // console.log(item);
+  getTags(itemid) {
+    console.log("get tags....");
     return new Promise((resolve, reject) => {
       client.query(
         `SELECT * FROM tags 
         INNER JOIN itemtags ON itemtags.tagid = tags.id
         WHERE itemtags.itemid=$1`,
-        [item.id],
+        [itemid],
         (err, data) => {
           // console.log(data);
           resolve(data.rows);

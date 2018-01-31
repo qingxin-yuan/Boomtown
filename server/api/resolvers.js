@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 module.exports = ({
   // jsonResource: { getSharedItems, getNumItemsBorrowed, getUser, getusers },
-  postgresResource: {getTags},
+  // postgresResource: {getTags},
 }) => {
   return {
     Query: {
@@ -33,12 +33,10 @@ module.exports = ({
       //   } else return null;
       // },
 
-      tags(item) {
-        // console.log(args);
-        return getTags(item);
-        // return i.tags;
-        // console.log(i);
-        // return i.tags;
+      tags({id}, args, context) {
+      
+        return context.loaders.getTags.load(id);
+    
       }
     },
     User: {
