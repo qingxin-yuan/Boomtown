@@ -11,7 +11,14 @@ import logo from '../../images/boomtown-logo.svg';
 import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
 
-const Login = ({ login }) => (
+const Login = ({
+    login,
+    handleUpdateEmail,
+    handleUpdatePassword,
+    emailInputValue,
+    passwordInputValue,
+    LoginError
+}) => (
     <div className="page login">
         <div className="logo">
             <img src={logo} alt="Boomtown Logo" />
@@ -25,17 +32,39 @@ const Login = ({ login }) => (
         <div className="cardContainer">
             <Paper zDepth={5}>
                 <div className="formContainer">
-                    <form onSubmit={login} autoComplete="off">
+                    <form
+                        onSubmit={e => {
+                            e.preventDefault();
+                            login();
+                        }}
+                        // onSubmit={login}
+                        autoComplete="off"
+                    >
                         <div>
-                            <ValidatedTextField label="Email" />
+                            <ValidatedTextField
+                                label="Email"
+                                handleChange={handleUpdateEmail}
+                                value={emailInputValue}
+                            />
                         </div>
                         <div>
-                            <ValidatedTextField label="Password" />
+                            <ValidatedTextField
+                                label="Password"
+                                type="password"
+                                handleChange={handleUpdatePassword}
+                                value={passwordInputValue}
+                            />
                         </div>
-                        <RaisedButton className="enterButton" primary fullWidth type="submit">
+                        <RaisedButton
+                            className="enterButton"
+                            primary
+                            fullWidth
+                            type="submit"
+                        >
                             Enter
                         </RaisedButton>
                     </form>
+                    <div>{LoginError.message}</div>
                 </div>
             </Paper>
         </div>

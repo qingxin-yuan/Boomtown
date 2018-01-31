@@ -22,16 +22,22 @@ import registerServiceWorker from './registerServiceWorker';
 import './index.css';
 // import HeaderBar from './components/HeaderBar/HeaderBar';
 
+
+
+
+
+
+
 const Boomtown = () => (
     <MuiThemeProvider muiTheme={muiTheme}>
         <Provider store={store}>
             <ApolloProvider client={client}>
                 <Router>
                     <div>
-                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/" component={Login} />
                         <Layout>
                             <Switch>
-                                <Route exact path="/" component={Items} />
+                                <Route exact path="/items" component={Items} />
                                 <Route
                                     exact
                                     path="/profile/:userid"
