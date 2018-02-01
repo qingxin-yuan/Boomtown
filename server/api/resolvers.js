@@ -3,6 +3,7 @@ const fetch = require("node-fetch");
 module.exports = ({
   // jsonResource: { getSharedItems, getNumItemsBorrowed, getUser, getusers },
   // postgresResource: {getTags},
+  firebaseResource: {getUser, getUsers}
 }) => {
   return {
     Query: {
@@ -11,27 +12,27 @@ module.exports = ({
         return context.loaders.getItems.load(args);
       },
 
-      // users(root, args, context) {
-      //   return getUsers();
-      // },
-      // user(root, { id }, context) {
-      //   //corresponds to id: ID in the schema
+      users() {
+        return getUsers();
+      },
+      user(root, {id}) {
+        //corresponds to id: ID in the schema
 
-      //   return getUser(id);
-      // },
+        return getUser(id);
+      },
       item(root, { id }, context) {
         return context.loaders.getItem.load(id);
       }
     },
     Item: {
-      // itemowner(item) {
-      //   return getUser(item.itemowner);
-      // },
-      // borrower(item) {
-      //   if (item.borrower) {
-      //     return getUser(item.borrower);
-      //   } else return null;
-      // },
+      itemowner(item) {
+        return getUser(item.itemowner);
+      },
+      borrower(item) {
+        if (item.borrower) {
+          return getUser(item.borrower);
+        } else return null;
+      },
 
       tags({id}, args, context) {
       
@@ -40,12 +41,13 @@ module.exports = ({
       }
     },
     User: {
-      shareditems(user) {
-        return getSharedItems(user.id);
+      shareditems({id}, args, context) {
+        return context.loaders.getSharedItems.load(id);
       },
-      async numborrowed(user) {
-        const i = await getNumItemsBorrowed(user.id);
+      async numborrowed({id}, args, context) {
+        const i = await context.loaders.getNumItemsBorrowed.load(id);
         return i.length;
+        
       }
     },
     Mutation: {

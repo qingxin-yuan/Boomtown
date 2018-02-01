@@ -21,7 +21,7 @@ config(app);
 
 
 
-const jsonResource = require("./api/resources/jsonResource")(app);
+// const jsonResource = require("./api/resources/jsonResource")(app);
 const postgresResource = require("./api/resources/postgresRsource");
 const firebaseResource = require("./api/resources/firebaseResource")(app);
 
@@ -33,8 +33,8 @@ const start = (postgresResource)=>{
     typeDefs,
     resolvers: initResolvers({
       // jsonResource,
-      postgresResource
-      // firebaseResource = firebaseResource(app);
+      postgresResource,
+      firebaseResource
   
     })
   });

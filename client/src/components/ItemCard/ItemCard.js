@@ -26,13 +26,13 @@ const ItemCard = ({ item, overlayText }) => (
             <img src={item.imageurl} alt="" />
         </CardMedia>
 
-        {/* <Link to={`/profile/${''||item.itemowner.id}`}> */}
-        <CardHeader
-            // avatar={<Gravatar email={'' || item.itemowner.email} />}
-            // title={item.itemowner.fullname}
-            subtitle={moment(item.created).fromNow()}
-        />
-        {/* </Link> */}
+        <Link to={`/profile/${'' || item.itemowner.id}`}>
+            <CardHeader
+                avatar={<Gravatar email={'' || item.itemowner.email} />}
+                title={item.itemowner.fullname}
+                subtitle={moment(item.created).fromNow()}
+            />
+        </Link>
         <CardTitle
             title={item.title}
             subtitle={item.tags.map(tag => `${tag.title}`).join(', ')}

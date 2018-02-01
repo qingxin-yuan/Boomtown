@@ -1,10 +1,12 @@
 import React from 'react';
 // import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-import { firebaseAuth } from '../../config/firebase';
+
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
+
+import { firebaseAuth } from '../../config/firebase';
 import logo from '../../images/boomtown-logo.svg';
 // import Items from '../../containers/Items';
 
@@ -26,7 +28,7 @@ const HeaderBar = () => (
         }
         iconElementRight={
             <div className="header-right">
-                <Link to="/profile/LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2">
+                <Link to={`/profile/${firebaseAuth.currentUser.uid}`}>
                     <RaisedButton
                         label="My Profile"
                         primary
