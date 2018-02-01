@@ -2,6 +2,7 @@ import React from 'react';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 
+
 import Items from '../../containers/Items';
 
 import './style.css';

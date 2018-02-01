@@ -17,11 +17,11 @@ const HeaderBar = () => (
     <AppBar
         iconElementLeft={
             <div className="header-left">
-                <Link to="/">
+                <Link to="/items">
                     <img src={logo} alt="boomtown logo" />
                 </Link>
 
-                <Route exact path={'/'} component={TagFilter} />
+                <Route exact path={'/items'} component={TagFilter} />
             </div>
         }
         iconElementRight={
@@ -35,7 +35,7 @@ const HeaderBar = () => (
                         }}
                     />
                 </Link>
-                <Link to="/login">
+                <Link to="/">
                     <RaisedButton label="Logout" secondary />
                 </Link>
             </div>

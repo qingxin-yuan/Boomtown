@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+
+import { connect } from 'react-redux';
+
 import Items from '../Items/';
+
 // import withRouter from
 // import PropTypes from 'prop-types';
 
 import Login from './Login';
 import { firebaseAuth } from '../../config/firebase';
+// import { userLoading } from '../../redux/modules/authentication';
 
 class LoginContainer extends Component {
     static propTypes = {};
@@ -35,12 +40,12 @@ class LoginContainer extends Component {
                     this.state.emailInputValue,
                     this.state.passwordInputValue
                 )
-                .then(args => {
-                    // NAVIGATE TO ITEMS
-                    console.log('success', args);
-                    this.props.history.push('/items');
-                    // return <Route exact path={'/'} component={Items} />;
-                })
+                // .then(args => {
+                //     // NAVIGATE TO ITEMS
+                //     console.log('success', args);
+                //     this.props.history.push('/items');
+                //     // return <Route exact path={'/'} component={Items} />;
+                // })
                 .catch(error => {
                     this.setState({ loginError: error });
                     // Handle Errors here.
@@ -53,7 +58,18 @@ class LoginContainer extends Component {
 
     render() {
         // return true;
-        return (
+        const { from } = this.props.location.state || {
+            from: { pathname: '/items' }
+        };
+        console.log(
+            'authenticated?',
+            this.props.authenticated,
+            'userloading? ',
+            this.props.userLoading,
+            from
+        );
+        // debugger;
+        return !this.props.authenticated ? (
             <Login
                 login={this.login}
                 emailInputValue={this.state.emailInputValue}
@@ -62,8 +78,15 @@ class LoginContainer extends Component {
                 handleUpdatePassword={this.handleUpdatePassword}
                 LoginError={this.state.loginError}
             />
+        ) : (
+            <Redirect to={from} />
         );
     }
 }
 
-export default LoginContainer;
+const mapStateToProps = state => ({
+    authenticated: state.auth.authenticated
+    // userLoading: state.auth.userLoading
+});
+
+export default connect(mapStateToProps)(LoginContainer);

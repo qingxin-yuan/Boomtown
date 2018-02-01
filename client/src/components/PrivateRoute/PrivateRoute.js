@@ -1,12 +1,24 @@
 import React from 'react';
 
-import { connect } from 'react-edux';
-import { Route, Redirect } from 'react-redux-dom';
+import { connect } from 'react-redux';
+import { Route, Redirect } from 'react-router-dom';
 
-const PrivateRoute = ({ authenticated, Component }) => (
+const PrivateRoute = ({ authenticated, component: Component, ...rest }) => (
     <Route
+        {...rest} // set props with the rest of the parent props
+        // path={path}
         render={props =>
-            (authenticated ? <Component {...props} /> : <Redirect to="/login" />)
+            (!authenticated ? (
+                <Redirect
+                    to={{
+                        pathname: '/',
+                        state: { from: props.location }
+                    }}
+                />
+            ) : (
+                // debugger
+                <Component {...props} />
+            ))
         }
     />
 );
