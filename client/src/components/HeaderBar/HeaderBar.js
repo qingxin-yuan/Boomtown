@@ -1,7 +1,7 @@
 import React from 'react';
 // import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-
+import { firebaseAuth } from '../../config/firebase';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
@@ -36,7 +36,11 @@ const HeaderBar = () => (
                     />
                 </Link>
                 <Link to="/">
-                    <RaisedButton label="Logout" secondary />
+                    <RaisedButton
+                        label="Logout"
+                        secondary
+                        onClick={() => firebaseAuth.signOut()}
+                    />
                 </Link>
             </div>
         }
