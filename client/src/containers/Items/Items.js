@@ -2,24 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Masonry from 'react-masonry-component';
 import ItemCard from '../../components/ItemCard/ItemCard';
+import { firebaseAuth } from '../../config/firebase';
 
 import './style.css';
 
 const Items = ({ items }) => {
     const overlay = item => {
-        // HARDCODED LOGGED IN USERID!!
+        //  HARDCODED LOGGED IN USERID!!
 
-        // if (
-        //     item.itemowner.id === 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
-        //     !item.available
-        // ) {
-        //     return `Lent to ${item.borrower.fullname}`;
-        // } else if (
-        //     item.itemowner.id !== 'LAi9TYWxgGhbjgHu1Sm6ZvB1tRP2' &&
-        //     !item.available
-        // ) {
-        //     return 'Unavailable';
-        // }
+        if (
+            item.itemowner.id === firebaseAuth.currentUser.uid &&
+            item.borrower
+        ) {
+            return `Lent to ${item.borrower.fullname}`;
+        } else if (
+            item.itemowner.id !== firebaseAuth.currentUser.uid &&
+            item.borrower
+        ) {
+            return 'Unavailable';
+        }
         return '';
     };
     // const overlay = '';

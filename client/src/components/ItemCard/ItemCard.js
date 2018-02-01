@@ -4,17 +4,16 @@ import PropTypes from 'prop-types';
 
 import {
     Card,
-    // CardActions,
     CardHeader,
     CardMedia,
     CardTitle,
     CardText
 } from 'material-ui/Card';
-// import FloatingActionButton from 'material-ui/FloatingActionButton';
-// import ContentAdd from 'material-ui/svg-icons/content/add';
-// import FlatButton from 'material-ui/FlatButton';
+
+import RaisedButton from 'material-ui/RaisedButton/';
 import Gravatar from 'react-gravatar';
 import moment from 'moment';
+import { firebaseAuth } from '../../config/firebase';
 
 import './style.css';
 
@@ -26,7 +25,7 @@ const ItemCard = ({ item, overlayText }) => (
             <img src={item.imageurl} alt="" />
         </CardMedia>
 
-        <Link to={`/profile/${'' || item.itemowner.id}`}>
+        <Link to={`/profile/${item.itemowner.id}`}>
             <CardHeader
                 avatar={<Gravatar email={'' || item.itemowner.email} />}
                 title={item.itemowner.fullname}
@@ -38,6 +37,9 @@ const ItemCard = ({ item, overlayText }) => (
             subtitle={item.tags.map(tag => `${tag.title}`).join(', ')}
         />
         <CardText>{item.description}</CardText>
+        {(!item.borrower && firebaseAuth.currentUser.uid !== item.itemowner.id) ? (
+            <RaisedButton label="Borrow" secondary style={{ margin: '10px' }} />
+        ) : ''}
     </Card>
 );
 

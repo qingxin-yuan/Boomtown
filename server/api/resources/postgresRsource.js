@@ -11,13 +11,6 @@ module.exports = async app => {
 
   await client.connect();
 
-  // client.query('SELECT * FROM items', (err, res) => {
-  //           // resolve(res.rows);
-  //           console.log(err, res);
-  //           // client.end();
-
-  //          });
-
   return {
     getSharedItems(userid) {
       return new Promise((resolve, reject) => {

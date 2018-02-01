@@ -38,7 +38,6 @@ const fetchUser = gql`
                 }
             }
             numborrowed
-            
         }
     }
 `;
@@ -49,15 +48,9 @@ class ProfileContainer extends Component {
     // }
 
     render() {
-        // const userid = this.props.match.params.userid;
-        // console.log(userid);
-        // console.log(this.props);
         const { loading, user } = this.props.data;
         console.log(user);
-        // if (this.props.items.length === 0) {
-        //     return false;
-        // }
-        // console.log(this.props.items);
+
         return loading ? (
             <p> loading....</p>
         ) : (
@@ -65,13 +58,6 @@ class ProfileContainer extends Component {
         );
     }
 }
-// const mapStateToProps = state => ({
-//     // convert states into props to pass in react class
-
-//     items: state.profile.items
-// });
-
-// export default connect(mapStateToProps)(ProfileContainer);
 
 export default graphql(fetchUser, {
     options: ownProps => ({
