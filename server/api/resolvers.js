@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 module.exports = ({
   // jsonResource: { getSharedItems, getNumItemsBorrowed, getUser, getusers },
-  // postgresResource: {getTags},
+  postgresResource: {createItem},
   firebaseResource: {getUser, getUsers}
 }) => {
   return {
@@ -53,18 +53,19 @@ module.exports = ({
     Mutation: {
       // addItem(root, payload){
 
-      addItem(root, { newItem: { title } }) {
+      createNewItem(root, {newItem}) {
+        console.log(newItem);
         // console.log(payload.newItem.title);
         //TO DO: save the new item in database
         // return {title: payload.newItem.title};
-        return { title };
+        return createItem(newItem);
 
         //must return new item type, thanks to the mutation schema
       },
-      updateItem(root, { newItem: { id, borrower: { fullname, email } } }) {
-        console.log(email);
-        return { fullname, email };
-      }
+      // updateItem(root, { newItem: { id, borrower: { fullname, email } } }) {
+      //   console.log(email);
+      //   return { fullname, email };
+      // }
     }
   };
 };

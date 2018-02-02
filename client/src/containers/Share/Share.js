@@ -1,6 +1,20 @@
 import React, { Component } from 'react';
+
+import {
+    Card,
+    CardHeader,
+    CardMedia,
+    CardTitle,
+    CardText
+} from 'material-ui/Card';
+
+import RaisedButton from 'material-ui/RaisedButton/';
+import Gravatar from 'react-gravatar';
+import moment from 'moment';
+import { firebaseAuth } from '../../config/firebase';
+
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
-import RaisedButton from 'material-ui/RaisedButton';
+// import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 // import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import TextField from 'material-ui/TextField';
@@ -13,22 +27,22 @@ import MenuItem from 'material-ui/MenuItem';
 export default class Share extends Component {
     // constructor() {
     //     super();
-        state = {
-            finished: false,
-            stepIndex: 0,
-            values: [],
-            tags: [
-                'Electronics',
-                'Household Items',
-                'Musical Instruments',
-                'Physical Media',
-                'Recreational Equipment',
-                'Sporting Goods',
-                'Tools'
-            ]
-        };
-        // this.handleChange = this.handleChange.bind(this);
-        // this.menuItems = this.menuItems.bind(this);
+    state = {
+        finished: false,
+        stepIndex: 0,
+        values: [],
+        tags: [
+            'Electronics',
+            'Household Items',
+            'Musical Instruments',
+            'Physical Media',
+            'Recreational Equipment',
+            'Sporting Goods',
+            'Tools'
+        ]
+    };
+    // this.handleChange = this.handleChange.bind(this);
+    // this.menuItems = this.menuItems.bind(this);
     // }
     handleChange = (event, index, values) => {
         // console.log(this.props.items);
@@ -96,6 +110,7 @@ export default class Share extends Component {
 
         return (
             <div style={{ maxWidth: 380, maxHeight: 500, margin: 'auto' }}>
+                {' '}
                 <Stepper activeStep={stepIndex} orientation="vertical">
                     <Step>
                         <StepLabel>Add an Image</StepLabel>
