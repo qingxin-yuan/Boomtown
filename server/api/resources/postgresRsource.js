@@ -81,7 +81,7 @@ module.exports = async app => {
         await client.query("BEGIN");
         const itemResult = await client.query(itemInsertQuery, itemValues);
 
-        console.log(tq(tags));
+        console.log(itemResult.rows);
         const tagsInsertQuery = `INSERT INTO itemtags(itemid, tagid) VALUES ${tq(
           tags
         )}`;

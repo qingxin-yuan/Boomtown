@@ -35,6 +35,7 @@ class LoginContainer extends Component {
         // console.log(this.state.email, this.state.password);
         if (this.state.emailInputValue && this.state.passwordInputValue) {
             // this.setState({ email, password });
+            console.log(firebaseAuth);
             firebaseAuth
                 .signInWithEmailAndPassword(
                     this.state.emailInputValue,
