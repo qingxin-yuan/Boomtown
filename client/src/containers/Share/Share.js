@@ -20,7 +20,7 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 
-import { firebaseAuth } from '../../config/firebase';
+import { firebaseAuth, firebaseRef } from '../../config/firebase';
 import image from '../../images/item-placeholder.jpg';
 
 import './style.css';
@@ -42,7 +42,8 @@ export default class Share extends Component {
             'Recreational Equipment',
             'Sporting Goods',
             'Tools'
-        ]
+        ],
+        imageurl: ''
     };
     // this.handleChange = this.handleChange.bind(this);
     // this.menuItems = this.menuItems.bind(this);
@@ -88,7 +89,7 @@ export default class Share extends Component {
         return (
             <div style={{ margin: '12px 0' }}>
                 <RaisedButton
-                    label={stepIndex === 3 ? 'Finish' : 'Next'}
+                    label={stepIndex === 3 ? 'submit' : 'Next'}
                     disableTouchRipple
                     disableFocusRipple
                     primary
@@ -110,7 +111,28 @@ export default class Share extends Component {
 
     render() {
         const { finished, stepIndex, values, tags } = this.state;
+        // console.log(document.querySelector('#image'));
+        if (document.querySelector('#image')) {
+            const file = document.querySelector('#image').files[0];
 
+            const name = `${+new Date()}-${file.name}`;
+            const metadata = {
+                contentType: file.type
+            };
+            const task = firebaseRef.child(name).put(file, metadata);
+            // console.log(file, name, metadata);
+            task
+                .then(snapshot => {
+                    const url = snapshot.downloadURL;
+                    // console.log(url);
+                    this.setState({ imageurl: url });
+                    console.log(this.state.imageurl);
+                    //   document.querySelector('#someImageTagID').src = url;
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
         return (
             <div className="share-container">
                 <div className="share-item-card">
@@ -149,13 +171,14 @@ export default class Share extends Component {
                                     of the item you're sharing.
                                 </p>
                                 <RaisedButton
-                                    label="Choose an Image"
+                                    label="Choose an image"
                                     labelPosition="before"
                                     style={{ margin: '12' }}
                                     containerElement="label"
                                 >
                                     <input
                                         type="file"
+                                        id="image"
                                         style={{
                                             cursor: 'pointer',
                                             position: 'absolute',
@@ -225,10 +248,3 @@ export default class Share extends Component {
         );
     }
 }
-// import './style.css';
-
-// export default class Share extends Component {
-//     render() {
-//         return <div>Share</div>;
-//     }
-// }
