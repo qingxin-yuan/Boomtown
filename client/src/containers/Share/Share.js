@@ -19,6 +19,8 @@ import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import gql from 'graphql-tag';
+import { graphql } from 'react-apollo';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
 import image from '../../images/item-placeholder.jpg';
@@ -27,7 +29,31 @@ import './style.css';
 /**
  * A contrived example using a transition between steps
  */
-export default class Share extends Component {
+
+const addItemMutation = gql`
+    mutation addNewItem(
+        $title: String
+        $description: String
+        $imageurl: String
+        $itemowner: ID
+        $tags: [TagInput]
+    ) {
+        createNewItem(
+            newItem: {
+                title: $title
+                description: $description
+                imageurl: $imageurl
+                itemowner: $itemowner
+                tags: $tags
+            }
+        ) {
+            title
+        }
+    }
+`;
+
+
+class Share extends Component {
     // constructor() {
     //     super();
     state = {
@@ -83,19 +109,57 @@ export default class Share extends Component {
         }
     };
 
+    submitForm = () => {
+        this.props
+            .mutate({
+                variables: {
+                    title: 'trippy item',
+                    description: 'wanna get tripping?',
+                    $imageurl: '',
+                    itemowner: 'NY9cKO5YGQdZHhFmWunJhZlZ5YU2',
+                    tags: [
+                        {
+                            id: 1
+                        },
+                        {
+                            id: 2
+                        }
+                    ]
+                }
+            })
+            .then(data => {
+                console.log('got data!', data);
+            })
+            .catch(error => {
+                console.log('something terrible happened', error);
+            });
+    };
+
     renderStepActions(step) {
         const { stepIndex } = this.state;
 
         return (
             <div style={{ margin: '12px 0' }}>
-                <RaisedButton
-                    label={stepIndex === 3 ? 'submit' : 'Next'}
-                    disableTouchRipple
-                    disableFocusRipple
-                    primary
-                    onClick={this.handleNext}
-                    style={{ marginRight: 12 }}
-                />
+                {step === 3 && (
+                    <RaisedButton
+                        label="submit"
+                        disableTouchRipple
+                        disableFocusRipple
+                        primary
+                        onClick={this.submitForm}
+                        style={{ marginRight: 12 }}
+                    />
+                )}
+                {step < 3 && (
+                    <RaisedButton
+                        label="next"
+                        disableTouchRipple
+                        disableFocusRipple
+                        primary
+                        onClick={this.handleNext}
+                        style={{ marginRight: 12 }}
+                    />
+                )}
                 {step > 0 && (
                     <FlatButton
                         label="Back"
@@ -126,6 +190,7 @@ export default class Share extends Component {
                     const url = snapshot.downloadURL;
                     // console.log(url);
                     this.setState({ imageurl: url });
+
                     console.log(this.state.imageurl);
                     //   document.querySelector('#someImageTagID').src = url;
                 })
@@ -133,12 +198,16 @@ export default class Share extends Component {
                     console.error(error);
                 });
         }
+
         return (
             <div className="share-container">
                 <div className="share-item-card">
                     <Card>
                         <CardMedia>
-                            <img src={image} alt="item placeholder" />
+                            <img
+                                src={this.state.imageurl || image}
+                                alt="item placeholder"
+                            />
                         </CardMedia>
 
                         <Link to={`/profile/${firebaseAuth.currentUser.uid}`}>
@@ -248,3 +317,7 @@ export default class Share extends Component {
         );
     }
 }
+
+export default graphql(addItemMutation)(Share);
+
+
