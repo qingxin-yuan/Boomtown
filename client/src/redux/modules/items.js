@@ -5,6 +5,7 @@
 // const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR';
 const GET_FILTER_TAGS = 'GET_FILTER_TAGS';
 const GET_TAG_LIST = 'GET_TAG_LIST';
+const RESET_TAGS = 'RESET_TAGS';
 
 // ACTION CREATORS - FUNCTIONS THAT RETURN OBJECT
 // const getItemsLoading = () => ({
@@ -28,6 +29,9 @@ export const getFilterTags = tags => ({
 export const getTagList = tagList => ({
     type: GET_TAG_LIST,
     payload: tagList
+});
+export const resetTags = () => ({
+    type: RESET_TAGS
 });
 // // ASYNC ACTION CREATOR
 // export const fetchItemsAndUser = () => dispatch => {
@@ -67,11 +71,11 @@ export const getTagList = tagList => ({
 export default (
     state = {
         // initial state
-        isLoading: false,
+        // isLoading: false,
         items: [],
         tags: [],
-        tagList: [],
-        error: ''
+        tagList: []
+        // error: ''
     },
     action
 ) => {
@@ -88,6 +92,12 @@ export default (
         return {
             ...state,
             tagList: action.payload
+        };
+    }
+    case RESET_TAGS: {
+        return {
+            ...state,
+            tags: []
         };
     }
     // case GET_ITEMS_LOADING: {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
@@ -25,6 +26,7 @@ import image from '../../images/item-placeholder.jpg';
 
 // import { getTagList } from '../../redux/modules/items';
 import { getShareTitle, getShareDescription } from '../../redux/modules/share';
+import { resetTags } from '../../redux/modules/items';
 import TagFilter from '../../components/TagFilter/';
 import ValidatedTextfield from '../../components/ValidatedTextField/';
 
@@ -107,6 +109,8 @@ class Share extends Component {
             .catch(error => {
                 console.log('something terrible happened', error);
             });
+        this.props.dispatch(resetTags());
+        this.props.history.push('/items');
     };
     fileUpload = e => {
         // if (input.target.value) {
@@ -137,6 +141,7 @@ class Share extends Component {
         return (
             <div style={{ margin: '12px 0' }}>
                 {step === 3 && (
+                    // <Link to="/items">
                     <RaisedButton
                         label="submit"
                         disableTouchRipple
@@ -145,6 +150,7 @@ class Share extends Component {
                         onClick={this.submitForm}
                         style={{ marginRight: 12 }}
                     />
+                    // </Link>
                 )}
                 {step < 3 && (
                     <RaisedButton
@@ -216,7 +222,7 @@ class Share extends Component {
                     className="share-form"
                     style={{ maxWidth: 600, maxHeight: 500, margin: 'auto' }}
                 >
-                    {/* {' '} */}
+                    {' '}
                     <Stepper activeStep={stepIndex} orientation="vertical">
                         <Step>
                             <StepLabel>Add an Image</StepLabel>
@@ -325,4 +331,4 @@ export default compose(
 
     connect(mapStateToProps),
     graphql(fetchTags)
-)(Share);
+)(withRouter(Share));

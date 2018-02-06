@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
-
+import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
 import Items from './Items';
@@ -79,14 +79,14 @@ class ItemsContainer extends Component {
 
         // TODO: finish filtering
         const { loading, items } = this.props.data;
-        const filteredItems = filterItems(this.props.tags, items);
-        console.log(filteredItems, items);
+        // const filteredItems = ;
+        // console.log(filteredItems, items);
 
         // console.log(this.props.data);
-        return loading ? (
+        return loading && !items ? (
             <p>loading...</p>
         ) : (
-            <Items items={filteredItems || items} />
+            <Items items={filterItems(this.props.tags, items) || items} />
         );
     }
 }
@@ -105,4 +105,4 @@ export default compose(
     // graphql(fetchTags),
     graphql(fetchItems),
     connect(mapStateToProps)
-)(ItemsContainer);
+)(withRouter(ItemsContainer));
