@@ -31,6 +31,14 @@ module.exports = async app => {
         });
       });
     },
+    getTags(){
+      return new Promise((resolve, reject) => {
+        client.query("SELECT * FROM tags", (err, res) => {
+          resolve(res.rows);
+          // client.end();
+        });
+      });
+    },
 
     getItem(id) {
       return new Promise((resolve, reject) => {
@@ -52,8 +60,8 @@ module.exports = async app => {
       });
     },
 
-    getTags(itemid) {
-      console.log("get tags....");
+    getItemTags(itemid) {
+      // console.log("get tags....");
       return new Promise((resolve, reject) => {
         client.query(
           `SELECT * FROM tags 

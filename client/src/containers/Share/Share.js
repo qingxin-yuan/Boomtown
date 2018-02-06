@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import {
     Card,
@@ -20,10 +21,12 @@ import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import gql from 'graphql-tag';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
 import image from '../../images/item-placeholder.jpg';
+
+import { getFilterTags, getTagList } from '../../redux/modules/items';
 
 import './style.css';
 /**
@@ -51,8 +54,14 @@ const addItemMutation = gql`
         }
     }
 `;
-
-
+const fetchTags = gql`
+    query {
+        tags {
+            id
+            title
+        }
+    }
+`;
 class Share extends Component {
     // constructor() {
     //     super();
@@ -60,15 +69,15 @@ class Share extends Component {
         finished: false,
         stepIndex: 0,
         values: [],
-        tags: [
-            'Electronics',
-            'Household Items',
-            'Musical Instruments',
-            'Physical Media',
-            'Recreational Equipment',
-            'Sporting Goods',
-            'Tools'
-        ],
+        // tags: [
+        //     'Electronics',
+        //     'Household Items',
+        //     'Musical Instruments',
+        //     'Physical Media',
+        //     'Recreational Equipment',
+        //     'Sporting Goods',
+        //     'Tools'
+        // ],
         imageurl: ''
     };
     // this.handleChange = this.handleChange.bind(this);
@@ -78,21 +87,23 @@ class Share extends Component {
         // console.log(this.props.items);
 
         // props.dispatch(getFilterTags(values));
-
+console.log(values);
         this.setState({ values });
     };
 
-    menuItems = values =>
+    menuItems = (tags, values) => {
         // let values =
-        this.state.tags.map(tag => (
+        // console.log(this.props);
+        tags.map(tag => (
             <MenuItem
-                key={tag}
+                key={tag.title}
                 insetChildren
-                checked={values && values.indexOf(tag) > -1}
-                value={tag}
-                primaryText={tag}
+                checked={values && values.indexOf(tag.id) > -1}
+                value={tag.id}
+                primaryText={tag.title}
             />
         ));
+    };
 
     handleNext = () => {
         const { stepIndex } = this.state;
@@ -115,7 +126,7 @@ class Share extends Component {
                 variables: {
                     title: 'trippy item',
                     description: 'wanna get tripping?',
-                    $imageurl: '',
+                    $imageurl: this.state.imgeurl,
                     itemowner: 'NY9cKO5YGQdZHhFmWunJhZlZ5YU2',
                     tags: [
                         {
@@ -174,11 +185,15 @@ class Share extends Component {
     }
 
     render() {
-        const { finished, stepIndex, values, tags } = this.state;
-        // console.log(document.querySelector('#image'));
-        if (document.querySelector('#image')) {
-            const file = document.querySelector('#image').files[0];
+        this.props.data.tags
+            ? this.props.dispatch(getTagList(this.props.data.tags))
+            : '';
 
+        console.log(this.props.tagList);
+
+        if (document.getElementById('#image')) {
+            const file = document.querySelector('#image').files[0];
+            console.log(file);
             const name = `${+new Date()}-${file.name}`;
             const metadata = {
                 contentType: file.type
@@ -198,6 +213,11 @@ class Share extends Component {
                     console.error(error);
                 });
         }
+
+        const tagList = this.props.tagList ? this.props.tagList : [];
+        // console.log(this.props.data);
+        const { finished, stepIndex, values } = this.state;
+        // console.log(document.querySelector('#image'));
 
         return (
             <div className="share-container">
@@ -237,7 +257,7 @@ class Share extends Component {
                             <StepContent>
                                 <p>
                                     We live in a visual culture. Upload an image
-                                    of the item you're sharing.
+                                    of the item you&apos;re sharing.
                                 </p>
                                 <RaisedButton
                                     label="Choose an image"
@@ -267,8 +287,9 @@ class Share extends Component {
                             <StepLabel>Add a Title & Description</StepLabel>
                             <StepContent>
                                 <p>
-                                    Folks need to know what you're sharing. Give
-                                    them a clue by adding a title & description.
+                                    Folks need to know what you&apos;re sharing.
+                                    Give them a clue by adding a title &
+                                    description.
                                 </p>
                                 <TextField
                                     style={{ marginTop: 0 }}
@@ -285,8 +306,8 @@ class Share extends Component {
                             <StepLabel>Categorize Your Item</StepLabel>
                             <StepContent>
                                 <p>
-                                    To share an item, you'll add it to our list
-                                    of categories. You can select multiple
+                                    To share an item, you&apos;ll add it to our
+                                    list of categories. You can select multiple
                                     categories.
                                 </p>
                                 <SelectField
@@ -296,7 +317,12 @@ class Share extends Component {
                                     style={{ width: 256, marginLeft: '20px' }}
                                     hintText="Select Category Tags"
                                 >
-                                    {this.menuItems(this.state.values)}
+                                    {tagList
+                                        ? this.menuItems(
+                                            tagList,
+                                            this.state.values
+                                        )
+                                        : ''}
                                 </SelectField>
                                 {this.renderStepActions(2)}
                             </StepContent>
@@ -305,8 +331,8 @@ class Share extends Component {
                             <StepLabel>Confirm Things!</StepLabel>
                             <StepContent>
                                 <p>
-                                    Great! If you're happy with everything, tap
-                                    the button.
+                                    Great! If you&apos;re happy with everything,
+                                    tap the button.
                                 </p>
                                 {this.renderStepActions(3)}
                             </StepContent>
@@ -318,6 +344,18 @@ class Share extends Component {
     }
 }
 
-export default graphql(addItemMutation)(Share);
+const mapStateToProps = state => ({
+    // isLoading: state.items.isLoading,
+    // items: state.items.items,
+    // filteredItems: state.items.filteredItems,
+    // error: state.items.error,
+    tags: state.items.tags,
+    tagList: state.items.tagList
+});
 
+export default compose(
+    graphql(addItemMutation),
 
+    connect(mapStateToProps),
+    graphql(fetchTags)
+)(Share);

@@ -63,6 +63,7 @@ module.exports = `
   type Query{
     items: [Item]
     users: [User]
+    tags: [Tag]
     user(id: ID): User
     item(id: ID): Item
   }

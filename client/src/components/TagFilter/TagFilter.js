@@ -3,46 +3,48 @@ import { connect } from 'react-redux';
 
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import { graphql, compose } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import { getFilterTags } from '../../redux/modules/items';
+import { getFilterTags, getTagList } from '../../redux/modules/items';
 // import Items from '../../containers/Items';
 
-const tagFields = [
-    'Electronics',
-    'Household Items',
-    'Musical Instruments',
-    'Physical Media',
-    'Recreational Equipment',
-    'Sporting Goods',
-    'Tools'
-];
-
+const fetchTags = gql`
+    query {
+        tags {
+            id
+            title
+        }
+    }
+`;
 
 const TagFilter = props => {
+    // console.log(props.data.tags);
+    props.dispatch(getTagList(props.data.tags));
+
+    // TAG FIELDS FROM POSTGRES
+    const tagFields = props.tagList ? props.tagList : [];
+    // console.log(tagFields);
     const handleChange = (event, index, values) => {
         // console.log(this.props.items);
-
+        // console.log(event, index, values);
         props.dispatch(getFilterTags(values));
 
         // this.setState({ values });
     };
 
     const menuItems = values =>
-        // let values =
+        
         tagFields.map(tag => (
             <MenuItem
-                key={tag}
+                key={tag.title}
                 insetChildren
-                checked={values && values.indexOf(tag) > -1}
-                value={tag}
-                primaryText={tag}
+                checked={values && values.indexOf(tag.id) > -1}
+                value={tag.id}
+                primaryText={tag.title}
             />
         ));
-    console.log(props);
-    // const items = props.tags
-    //     ? filterItems(props.tags, props.items)
-    //     : props.items;
-    // console.log(items);
+
     return (
         <div>
             <SelectField
@@ -62,8 +64,9 @@ const mapStateToProps = state => ({
     isLoading: state.items.isLoading,
     items: state.items.items,
     // filteredItems: state.items.filteredItems,
-    error: state.items.error,
-    tags: state.items.tags
+    // error: state.items.error,
+    tags: state.items.tags,
+    tagList: state.items.tagList
 });
 
-export default connect(mapStateToProps)(TagFilter);
+export default compose(connect(mapStateToProps), graphql(fetchTags))(TagFilter);

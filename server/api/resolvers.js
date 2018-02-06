@@ -2,7 +2,7 @@ const fetch = require("node-fetch");
 
 module.exports = ({
   // jsonResource: { getSharedItems, getNumItemsBorrowed, getUser, getusers },
-  postgresResource: {createItem},
+  postgresResource: {createItem, getTags},
   firebaseResource: {getUser, getUsers}
 }) => {
   return {
@@ -14,6 +14,9 @@ module.exports = ({
 
       users() {
         return getUsers();
+      },
+      tags(){
+        return getTags();
       },
       user(root, {id}) {
         //corresponds to id: ID in the schema
@@ -36,7 +39,7 @@ module.exports = ({
 
       tags({id}, args, context) {
       
-        return context.loaders.getTags.load(id);
+        return context.loaders.getItemTags.load(id);
     
       }
     },

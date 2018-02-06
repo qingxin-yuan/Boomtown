@@ -8,11 +8,13 @@ import Items from './Items';
 // import { fetchItemsAndUser } from '../../redux/modules/items';
 
 import './style.css';
+// import { fetchItemsAndUser } from '../../redux/modules/profile';
 
 // filter function
 const filterItems = (tags, items) => {
     // console.log(tags,items);
     const result = [];
+    // const tagList =
     if (tags.length === 0 || tags === []) {
         // dispatch(getItems(items));
         return items;
@@ -20,9 +22,13 @@ const filterItems = (tags, items) => {
     items.forEach(item => {
         tags.forEach(filterTag => {
             // console.log(filterTag);
-            if (item.tags.map(tag => tag.title).indexOf(filterTag) > -1) {
+            if (
+                item.tags.map(tag => tag.id).indexOf(filterTag) > -1 &&
+                !result.includes(item)
+            ) {
                 result.push(item);
             }
+            // return result;
         });
     });
 
@@ -76,7 +82,7 @@ class ItemsContainer extends Component {
         const filteredItems = filterItems(this.props.tags, items);
         console.log(filteredItems, items);
 
-        // console.log(this.props);
+        // console.log(this.props.data);
         return loading ? (
             <p>loading...</p>
         ) : (
@@ -95,6 +101,8 @@ const mapStateToProps = state => ({
 });
 
 // export default connect(mapStateToProps)(ItemsContainer);
-export default compose(graphql(fetchItems), connect(mapStateToProps))(
-    ItemsContainer
-);
+export default compose(
+    // graphql(fetchTags),
+    graphql(fetchItems),
+    connect(mapStateToProps)
+)(ItemsContainer);

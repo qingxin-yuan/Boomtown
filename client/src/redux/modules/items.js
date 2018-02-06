@@ -1,63 +1,67 @@
 // ACTIONS (TYPES)
 
-const GET_ITEMS_LOADING = 'GET_ITEMS_LOADING';
-const GET_ITEMS = 'GET_ITEMS';
-const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR';
+// const GET_ITEMS_LOADING = 'GET_ITEMS_LOADING';
+// const GET_ITEMS = 'GET_ITEMS';
+// const GET_ITEMS_ERROR = 'GET_ITEMS_ERROR';
 const GET_FILTER_TAGS = 'GET_FILTER_TAGS';
+const GET_TAG_LIST = 'GET_TAG_LIST';
 
 // ACTION CREATORS - FUNCTIONS THAT RETURN OBJECT
-const getItemsLoading = () => ({
-    type: GET_ITEMS_LOADING
-});
+// const getItemsLoading = () => ({
+//     type: GET_ITEMS_LOADING
+// });
 
-const getItems = items => ({
-    type: GET_ITEMS,
-    payload: items
-});
+// const getItems = items => ({
+//     type: GET_ITEMS,
+//     payload: items
+// });
 
-const getItemsError = error => ({
-    type: GET_ITEMS_ERROR,
-    payload: error
-});
+// const getItemsError = error => ({
+//     type: GET_ITEMS_ERROR,
+//     payload: error
+// });
 
 export const getFilterTags = tags => ({
     type: GET_FILTER_TAGS,
     payload: tags
 });
+export const getTagList = tagList => ({
+    type: GET_TAG_LIST,
+    payload: tagList
+});
+// // ASYNC ACTION CREATOR
+// export const fetchItemsAndUser = () => dispatch => {
+//     dispatch(getItemsLoading()); // set loading icon before fetching the data
 
-// ASYNC ACTION CREATOR
-export const fetchItemsAndUser = () => dispatch => {
-    dispatch(getItemsLoading()); // set loading icon before fetching the data
+//     return Promise.all(
+//         ['http://localhost:4000/items', 'http://localhost:4000/users'].map(
+//             url => fetch(url).then(response => response.json())
+//         )
+//     )
 
-    return Promise.all(
-        ['http://localhost:4000/items', 'http://localhost:4000/users'].map(
-            url => fetch(url).then(response => response.json())
-        )
-    )
+//         .then(json => {
+//             const [itemsList, userList] = json;
+//             // const overlay = '';
 
-        .then(json => {
-            const [itemsList, userList] = json;
-            // const overlay = '';
+//             console.log(itemsList, userList);
 
-            console.log(itemsList, userList);
+//             const newItemsList = itemsList.map(item => {
+//                 item.itemowner = userList
+//                     .slice()
+//                     .find(user => user.id === item.itemowner);
 
-            const newItemsList = itemsList.map(item => {
-                item.itemowner = userList
-                    .slice()
-                    .find(user => user.id === item.itemowner);
+//                 item.borrowerName = item.borrower
+//                     ? (item.borrowerName = userList
+//                         .slice()
+//                         .find(user => user.id === item.borrower).fullname)
+//                     : (item.borrowerName = null);
+//                 return item;
+//             });
 
-                item.borrowerName = item.borrower
-                    ? (item.borrowerName = userList
-                        .slice()
-                        .find(user => user.id === item.borrower).fullname)
-                    : (item.borrowerName = null);
-                return item;
-            });
-
-            dispatch(getItems(newItemsList));
-        })
-        .catch(error => dispatch(getItemsError(error.message)));
-};
+//             dispatch(getItems(newItemsList));
+//         })
+//         .catch(error => dispatch(getItemsError(error.message)));
+// };
 
 // REDUCER
 export default (
@@ -66,13 +70,13 @@ export default (
         isLoading: false,
         items: [],
         tags: [],
+        tagList: [],
         error: ''
     },
     action
 ) => {
     switch (action.type) {
     case GET_FILTER_TAGS: {
-        // console.log(action.payload.tags,action.payload.items, filteredItems);
         return {
             ...state,
             tags: action.payload
@@ -80,31 +84,37 @@ export default (
             // filteredItems,
         };
     }
-    case GET_ITEMS_LOADING: {
+    case GET_TAG_LIST: {
         return {
             ...state,
-            isLoading: true,
-            error: '' // if previously there was an error, clear the error
+            tagList: action.payload
         };
     }
+    // case GET_ITEMS_LOADING: {
+    //     return {
+    //         ...state,
+    //         isLoading: true,
+    //         error: '' // if previously there was an error, clear the error
+    //     };
+    // }
 
-    case GET_ITEMS: {
-        return {
-            ...state,
-            items: action.payload,
-            // filteredItems: action.payload,
-            isLoading: false,
-            error: ''
-        };
-    }
+    // case GET_ITEMS: {
+    //     return {
+    //         ...state,
+    //         items: action.payload,
+    //         // filteredItems: action.payload,
+    //         isLoading: false,
+    //         error: ''
+    //     };
+    // }
 
-    case GET_ITEMS_ERROR: {
-        return {
-            ...state,
-            isLoading: false,
-            error: action.payload
-        };
-    }
+    // case GET_ITEMS_ERROR: {
+    //     return {
+    //         ...state,
+    //         isLoading: false,
+    //         error: action.payload
+    //     };
+    // }
 
     default:
         return state;
