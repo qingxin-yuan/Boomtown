@@ -16,8 +16,6 @@ import moment from 'moment';
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 // import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
-// import ExpandTransition from 'material-ui/internal/ExpandTransition';
-import TextField from 'material-ui/TextField';
 
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
@@ -96,8 +94,8 @@ class Share extends Component {
         this.props
             .mutate({
                 variables: {
-                    title: 'trippy item',
-                    description: 'wanna get tripping?',
+                    title: this.props.title,
+                    description: this.props.description,
                     imageurl: this.state.imageurl,
                     itemowner: firebaseAuth.currentUser.uid,
                     tags: tagList
@@ -208,7 +206,10 @@ class Share extends Component {
                             />
                         </Link>
                         <CardTitle title={this.props.title || 'Awesome Item'} />
-                        <CardText>Profound item description.</CardText>
+                        <CardText>
+                            {this.props.description ||
+                                'Profound item description.'}
+                        </CardText>
                     </Card>
                 </div>
                 <div
@@ -257,10 +258,7 @@ class Share extends Component {
                                     Give them a clue by adding a title &
                                     description.
                                 </p>
-                                {/* <TextField
-                                    style={{ marginTop: 0 }}
-                                    floatingLabelText="Title"
-                                /> */}
+
                                 <ValidatedTextfield
                                     label="Title"
                                     handleChange={e =>
@@ -268,12 +266,16 @@ class Share extends Component {
                                             getShareTitle(e.target.value)
                                         )
                                     }
-                                    // value={value}
                                 />
-                                <TextField
-                                    style={{ marginTop: 0 }}
-                                    floatingLabelText="Description"
+                                <ValidatedTextfield
+                                    label="Description"
+                                    handleChange={e =>
+                                        this.props.dispatch(
+                                            getShareDescription(e.target.value)
+                                        )
+                                    }
                                 />
+
                                 {this.renderStepActions(1)}
                             </StepContent>
                         </Step>
@@ -313,7 +315,7 @@ const mapStateToProps = state => ({
     // filteredItems: state.items.filteredItems,
     // error: state.items.error,
     title: state.share.title,
-    descriptioin: state.share.description,
+    description: state.share.description,
     tags: state.items.tags,
     tagList: state.items.tagList
 });
