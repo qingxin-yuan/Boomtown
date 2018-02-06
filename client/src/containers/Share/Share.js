@@ -18,17 +18,18 @@ import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
 // import ExpandTransition from 'material-ui/internal/ExpandTransition';
 import TextField from 'material-ui/TextField';
-import SelectField from 'material-ui/SelectField';
-import MenuItem from 'material-ui/MenuItem';
+
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
 import image from '../../images/item-placeholder.jpg';
 
-import { getTagList } from '../../redux/modules/items';
-
+// import { getTagList } from '../../redux/modules/items';
+import { getShareTitle, getShareDescription } from '../../redux/modules/share';
 import TagFilter from '../../components/TagFilter/';
+import ValidatedTextfield from '../../components/ValidatedTextField/';
+
 import './style.css';
 // import { FirebaseAuth } from '@firebase/auth-types';
 /**
@@ -109,7 +110,7 @@ class Share extends Component {
                 console.log('something terrible happened', error);
             });
     };
-    fileUpload = (e) => {
+    fileUpload = e => {
         // if (input.target.value) {
         const file = e.target.files[0];
         console.log(file);
@@ -131,7 +132,7 @@ class Share extends Component {
             .catch(error => {
                 console.error(error);
             });
-    }
+    };
     renderStepActions(step) {
         const { stepIndex } = this.state;
 
@@ -206,7 +207,7 @@ class Share extends Component {
                                 subtitle={moment().fromNow()}
                             />
                         </Link>
-                        <CardTitle title="Awesome Item" />
+                        <CardTitle title={this.props.title || 'Awesome Item'} />
                         <CardText>Profound item description.</CardText>
                     </Card>
                 </div>
@@ -256,9 +257,18 @@ class Share extends Component {
                                     Give them a clue by adding a title &
                                     description.
                                 </p>
-                                <TextField
+                                {/* <TextField
                                     style={{ marginTop: 0 }}
                                     floatingLabelText="Title"
+                                /> */}
+                                <ValidatedTextfield
+                                    label="Title"
+                                    handleChange={e =>
+                                        this.props.dispatch(
+                                            getShareTitle(e.target.value)
+                                        )
+                                    }
+                                    // value={value}
                                 />
                                 <TextField
                                     style={{ marginTop: 0 }}
@@ -302,6 +312,8 @@ const mapStateToProps = state => ({
     // items: state.items.items,
     // filteredItems: state.items.filteredItems,
     // error: state.items.error,
+    title: state.share.title,
+    descriptioin: state.share.description,
     tags: state.items.tags,
     tagList: state.items.tagList
 });

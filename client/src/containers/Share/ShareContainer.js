@@ -22,7 +22,6 @@ mutation addNewItem(
     }){
       title
     }
-      
   }
 `;
 
