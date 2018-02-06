@@ -26,9 +26,11 @@ import { graphql, compose } from 'react-apollo';
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
 import image from '../../images/item-placeholder.jpg';
 
-import { getFilterTags, getTagList } from '../../redux/modules/items';
+import { getTagList } from '../../redux/modules/items';
 
+import TagFilter from '../../components/TagFilter/';
 import './style.css';
+// import { FirebaseAuth } from '@firebase/auth-types';
 /**
  * A contrived example using a transition between steps
  */
@@ -63,46 +65,12 @@ const fetchTags = gql`
     }
 `;
 class Share extends Component {
-    // constructor() {
-    //     super();
     state = {
         finished: false,
         stepIndex: 0,
         values: [],
-        // tags: [
-        //     'Electronics',
-        //     'Household Items',
-        //     'Musical Instruments',
-        //     'Physical Media',
-        //     'Recreational Equipment',
-        //     'Sporting Goods',
-        //     'Tools'
-        // ],
+
         imageurl: ''
-    };
-    // this.handleChange = this.handleChange.bind(this);
-    // this.menuItems = this.menuItems.bind(this);
-    // }
-    handleChange = (event, index, values) => {
-        // console.log(this.props.items);
-
-        // props.dispatch(getFilterTags(values));
-console.log(values);
-        this.setState({ values });
-    };
-
-    menuItems = (tags, values) => {
-        // let values =
-        // console.log(this.props);
-        tags.map(tag => (
-            <MenuItem
-                key={tag.title}
-                insetChildren
-                checked={values && values.indexOf(tag.id) > -1}
-                value={tag.id}
-                primaryText={tag.title}
-            />
-        ));
     };
 
     handleNext = () => {
@@ -121,21 +89,17 @@ console.log(values);
     };
 
     submitForm = () => {
+        const { tags } = this.props;
+        const tagList = [];
+        tags.forEach(tag => tagList.push({ id: tag }));
         this.props
             .mutate({
                 variables: {
                     title: 'trippy item',
                     description: 'wanna get tripping?',
-                    $imageurl: this.state.imgeurl,
-                    itemowner: 'NY9cKO5YGQdZHhFmWunJhZlZ5YU2',
-                    tags: [
-                        {
-                            id: 1
-                        },
-                        {
-                            id: 2
-                        }
-                    ]
+                    imageurl: this.state.imageurl,
+                    itemowner: firebaseAuth.currentUser.uid,
+                    tags: tagList
                 }
             })
             .then(data => {
@@ -145,7 +109,29 @@ console.log(values);
                 console.log('something terrible happened', error);
             });
     };
+    fileUpload = (e) => {
+        // if (input.target.value) {
+        const file = e.target.files[0];
+        console.log(file);
+        const name = `${+new Date()}-${file.name}`;
+        const metadata = {
+            contentType: file.type
+        };
+        const task = firebaseRef.child(name).put(file, metadata);
+        // console.log(file, name, metadata);
+        task
+            .then(snapshot => {
+                const url = snapshot.downloadURL;
+                // console.log(url);
+                this.setState({ imageurl: url });
 
+                console.log(this.state.imageurl);
+                //   document.querySelector('#someImageTagID').src = url;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    }
     renderStepActions(step) {
         const { stepIndex } = this.state;
 
@@ -185,39 +171,17 @@ console.log(values);
     }
 
     render() {
-        this.props.data.tags
-            ? this.props.dispatch(getTagList(this.props.data.tags))
-            : '';
-
-        console.log(this.props.tagList);
-
-        if (document.getElementById('#image')) {
-            const file = document.querySelector('#image').files[0];
-            console.log(file);
-            const name = `${+new Date()}-${file.name}`;
-            const metadata = {
-                contentType: file.type
-            };
-            const task = firebaseRef.child(name).put(file, metadata);
-            // console.log(file, name, metadata);
-            task
-                .then(snapshot => {
-                    const url = snapshot.downloadURL;
-                    // console.log(url);
-                    this.setState({ imageurl: url });
-
-                    console.log(this.state.imageurl);
-                    //   document.querySelector('#someImageTagID').src = url;
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        }
-
-        const tagList = this.props.tagList ? this.props.tagList : [];
+        // this.props.data.tags
+        //     ? this.props.dispatch(getTagList(this.props.data.tags))
+        //     : '';
+        // const tagsIdTitle = this.props.tagList ? this.props.tagList : [];
+        // console.log(tagsIdTitle);
+        // const tagList = this.props.tagList ? this.props.tagList : [];
         // console.log(this.props.data);
         const { finished, stepIndex, values } = this.state;
         // console.log(document.querySelector('#image'));
+
+        // if (document.getElementById('image')) {
 
         return (
             <div className="share-container">
@@ -268,6 +232,7 @@ console.log(values);
                                     <input
                                         type="file"
                                         id="image"
+                                        onChange={this.fileUpload}
                                         style={{
                                             cursor: 'pointer',
                                             position: 'absolute',
@@ -310,20 +275,8 @@ console.log(values);
                                     list of categories. You can select multiple
                                     categories.
                                 </p>
-                                <SelectField
-                                    multiple
-                                    value={values}
-                                    onChange={this.handleChange}
-                                    style={{ width: 256, marginLeft: '20px' }}
-                                    hintText="Select Category Tags"
-                                >
-                                    {tagList
-                                        ? this.menuItems(
-                                            tagList,
-                                            this.state.values
-                                        )
-                                        : ''}
-                                </SelectField>
+
+                                <TagFilter />
                                 {this.renderStepActions(2)}
                             </StepContent>
                         </Step>
