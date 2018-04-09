@@ -7,16 +7,20 @@ import { firebaseAuth } from '../../config/firebase';
 import './style.css';
 
 const overlay = item => {
-    //  HARDCODED LOGGED IN USERID!!
-
-    if (item.itemowner.id === firebaseAuth.currentUser.uid && item.borrower) {
-        return `Lent to ${item.borrower.fullname}`;
-    } else if (
-        item.itemowner.id !== firebaseAuth.currentUser.uid &&
-        item.borrower
-    ) {
-        return 'Unavailable';
+    if (firebaseAuth.currentUser) {
+        if (
+            item.itemowner.id === firebaseAuth.currentUser.uid &&
+            item.borrower
+        ) {
+            return `Lent to ${item.borrower.fullname}`;
+        } else if (
+            item.itemowner.id !== firebaseAuth.currentUser.uid &&
+            item.borrower
+        ) {
+            return 'Unavailable';
+        }
     }
+
     return '';
 };
 

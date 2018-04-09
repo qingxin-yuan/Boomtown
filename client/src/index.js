@@ -13,33 +13,22 @@ import muiTheme from './config/theme';
 import Layout from './components/Layout';
 import PrivateRoute from './components/PrivateRoute';
 import Login from './containers/Login';
-// import TagFilter from './components/TagFilter';
 import Items from './components/ItemCardList';
 import Profile from './containers/Profile';
 import Share from './containers/Share';
 import NotFound from './containers/NotFound';
 import registerServiceWorker from './registerServiceWorker';
 import { firebaseAuth } from './config/firebase';
-import { updateAuthState, userLoading } from './redux/modules/authentication';
+import { updateAuth } from './redux/modules/authentication';
+
 import './index.css';
-// import HeaderBar from './components/HeaderBar/HeaderBar';
 
-let gotProfile = false;
-
-store.subscribe(() => {
-    const values = store.getState();
-    if (values.authenticated !== 'LOADING_USER' && !gotProfile) {
-        gotProfile = true;
-        store.dispatch(userLoading(false));
-    }
-});
-
+// Update user info in redux when user logged in
 firebaseAuth.onAuthStateChanged(user => {
-    console.log('checking for users.....');
     if (user) {
-        store.dispatch(updateAuthState(user));
+        store.dispatch(updateAuth(user));
     } else {
-        store.dispatch(updateAuthState(false));
+        store.dispatch(updateAuth(false));
     }
 });
 

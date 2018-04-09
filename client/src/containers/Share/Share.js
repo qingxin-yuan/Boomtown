@@ -22,7 +22,7 @@ import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
-import image from '../../images/item-placeholder.jpg';
+// import image from '../../images/item-placeholder.jpg';
 
 // import { getTagList } from '../../redux/modules/items';
 import { getShareTitle, getShareDescription } from '../../redux/modules/share';
@@ -71,7 +71,8 @@ class Share extends Component {
         stepIndex: 0,
         values: [],
 
-        imageurl: ''
+        imageurl:
+            'https://firebasestorage.googleapis.com/v0/b/boomtown-b0c6a.appspot.com/o/item-placeholder.jpg?alt=media&token=6f7e6af4-697f-4323-8cca-ff3d9aeb4891'
     };
 
     handleNext = () => {
@@ -194,7 +195,7 @@ class Share extends Component {
                     <Card>
                         <CardMedia>
                             <img
-                                src={this.state.imageurl || image}
+                                src={this.state.imageurl}
                                 alt="item placeholder"
                             />
                         </CardMedia>

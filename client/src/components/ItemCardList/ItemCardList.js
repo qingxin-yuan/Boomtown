@@ -8,7 +8,7 @@ import Items from '../../containers/Items';
 import './style.css';
 
 const ItemCardList = () => (
-    // render(){
+
     <div className="items-wrapper">
         <Items />
         <div className="share-button">
@@ -27,6 +27,6 @@ const ItemCardList = () => (
         </div>
     </div>
 );
-// }
+
 
 export default ItemCardList;

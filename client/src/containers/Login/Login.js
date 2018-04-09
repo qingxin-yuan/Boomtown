@@ -37,7 +37,6 @@ const Login = ({
                             e.preventDefault();
                             login();
                         }}
-                        // onSubmit={login}
                         autoComplete="off"
                     >
                         <div>
@@ -64,7 +63,10 @@ const Login = ({
                             Enter
                         </RaisedButton>
                     </form>
-                    <div>{LoginError.message}</div>
+                    <div>
+                        {LoginError.message &&
+                            `Something wrong...${LoginError.message}`}
+                    </div>
                 </div>
             </Paper>
         </div>
@@ -72,7 +74,12 @@ const Login = ({
 );
 
 Login.propTypes = {
-    login: PropTypes.func.isRequired
+    login: PropTypes.func.isRequired,
+    handleUpdateEmail: PropTypes.func.isRequired,
+    handleUpdatePassword: PropTypes.func.isRequired,
+    emailInputValue: PropTypes.string.isRequired,
+    passwordInputValue: PropTypes.string.isRequired,
+    LoginError: PropTypes.object.isRequired
 };
 
 export default Login;

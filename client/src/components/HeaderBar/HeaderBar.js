@@ -5,8 +5,9 @@ import { Route, Link } from 'react-router-dom';
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
-
 import { firebaseAuth } from '../../config/firebase';
+import { logOut } from '../../redux/modules/authentication';
+
 import logo from '../../images/boomtown-logo.svg';
 // import Items from '../../containers/Items';
 
@@ -28,20 +29,26 @@ const HeaderBar = () => (
         }
         iconElementRight={
             <div className="header-right">
-                <Link to={`/profile/${firebaseAuth.currentUser.uid}`}>
-                    <RaisedButton
-                        label="My Profile"
-                        primary
-                        style={{
-                            marginRight: '18px'
-                        }}
-                    />
-                </Link>
+                {firebaseAuth.currentUser && (
+                    <Link to={`/profile/${firebaseAuth.currentUser.uid}`}>
+                        <RaisedButton
+                            label="My Profile"
+                            primary
+                            style={{
+                                marginRight: '18px'
+                            }}
+                        />
+                    </Link>
+                )}
+
                 <Link to="/">
                     <RaisedButton
                         label="Logout"
                         secondary
-                        onClick={() => firebaseAuth.signOut()}
+                        onClick={() => {
+                            firebaseAuth.signOut();
+                            // logOut();
+                        }}
                     />
                 </Link>
             </div>
