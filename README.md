@@ -2,7 +2,7 @@
 
 An items sharing single-page app built on React, Redux, GraphQL.
 
-![Alt Text](./boomtown-demo.gif "app demo gif")
+<img src="./boomtown-demo.gif" width="600" height="300">
 
 ## Installation
 
