@@ -1,7 +1,9 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import Share from './Share';
+import { firebaseAuth } from '../../config/firebase';
 
 import './style.css';
 
@@ -27,6 +29,6 @@ const addItem = gql`
     }
 `;
 
-const ShareContainer = () => <Share />;
+const ShareContainer = () => <Share uid={firebaseAuth.currentUser.uid} />;
 
 export default graphql(addItem)(ShareContainer);

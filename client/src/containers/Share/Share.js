@@ -55,7 +55,19 @@ const fetchTags = gql`
         }
     }
 `;
+const fetchUserName = gql`
+    query fetchUserName($id: ID) {
+        user(id: $id) {
+            fullname
+        }
+    }
+`;
+
 class Share extends Component {
+    // constructor(props){
+    //     super(props);
+
+    // }
     state = {
         finished: false,
         stepIndex: 0,
@@ -118,46 +130,45 @@ class Share extends Component {
                 console.error(error);
             });
     };
-    renderStepActions(step) {
-        const { stepIndex } = this.state;
-
-        return (
-            <div style={{ margin: '12px 0' }}>
-                {step === 3 && (
-                    <RaisedButton
-                        label="submit"
-                        disableTouchRipple
-                        disableFocusRipple
-                        primary
-                        onClick={this.submitForm}
-                        style={{ marginRight: 12 }}
-                    />
-                )}
-                {step < 3 && (
-                    <RaisedButton
-                        label="next"
-                        disableTouchRipple
-                        disableFocusRipple
-                        primary
-                        onClick={this.handleNext}
-                        style={{ marginRight: 12 }}
-                    />
-                )}
-                {step > 0 && (
-                    <FlatButton
-                        label="Back"
-                        disabled={stepIndex === 0}
-                        disableTouchRipple
-                        disableFocusRipple
-                        onClick={this.handlePrev}
-                    />
-                )}
-            </div>
-        );
-    }
+    renderStepActions = step => (
+        <div style={{ margin: '12px 0' }}>
+            {step === 3 && (
+                <RaisedButton
+                    label="submit"
+                    disableTouchRipple
+                    disableFocusRipple
+                    primary
+                    onClick={this.submitForm}
+                    style={{ marginRight: 12 }}
+                />
+            )}
+            {step < 3 && (
+                <RaisedButton
+                    label="next"
+                    disableTouchRipple
+                    disableFocusRipple
+                    primary
+                    onClick={this.handleNext}
+                    style={{ marginRight: 12 }}
+                />
+            )}
+            {step > 0 && (
+                <FlatButton
+                    label="Back"
+                    disabled={this.state.stepIndex === 0}
+                    disableTouchRipple
+                    disableFocusRipple
+                    onClick={this.handlePrev}
+                />
+            )}
+        </div>
+    );
 
     render() {
-        return (
+        const { loading, user } = this.props.fetchUserName;
+        return loading ? (
+            <div>loading....</div>
+        ) : (
             <div className="share-container">
                 <div className="share-item-card">
                     <Card>
@@ -168,7 +179,7 @@ class Share extends Component {
                             />
                         </CardMedia>
 
-                        <Link to={`/profile/${firebaseAuth.currentUser.uid}`}>
+                        <Link to={`/profile/${this.props.uid}`}>
                             <CardHeader
                                 avatar={
                                     <Gravatar
@@ -176,6 +187,7 @@ class Share extends Component {
                                         className="share-gravatar"
                                     />
                                 }
+                                title={user.fullname}
                                 subtitle={moment().fromNow()}
                             />
                         </Link>
@@ -294,16 +306,26 @@ const mapStateToProps = state => ({
 });
 
 Share.propTypes = {
+    fetchUserName: PropTypes.object.isRequired,
     mutate: PropTypes.func.isRequired,
     tags: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
-    history: PropTypes.object.isRequired
+    history: PropTypes.object.isRequired,
+    uid: PropTypes.string.isRequired
 };
 
 export default compose(
     graphql(addItemMutation),
+    graphql(fetchUserName, {
+        name: 'fetchUserName',
+        options: ownProps => ({
+            variables: {
+                id: ownProps.uid
+            }
+        })
+    }),
     connect(mapStateToProps),
-    graphql(fetchTags)
+    graphql(fetchTags, { name: 'fetchTags' })
 )(withRouter(Share));

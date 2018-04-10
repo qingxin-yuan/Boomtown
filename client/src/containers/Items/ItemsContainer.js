@@ -51,7 +51,6 @@ class ItemsContainer extends Component {
                 }
             });
         });
-
         return result;
     };
     render() {
