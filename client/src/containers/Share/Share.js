@@ -9,19 +9,16 @@ import {
     CardTitle,
     CardText
 } from 'material-ui/Card';
-
 import RaisedButton from 'material-ui/RaisedButton/';
 import Gravatar from 'react-gravatar';
 import moment from 'moment';
-
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
 import FlatButton from 'material-ui/FlatButton';
-
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
+import PropTypes from 'prop-types';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
-
 import { getShareTitle, getShareDescription } from '../../redux/modules/share';
 import { resetTags } from '../../redux/modules/items';
 import TagFilter from '../../components/TagFilter/';
@@ -63,7 +60,6 @@ class Share extends Component {
         finished: false,
         stepIndex: 0,
         values: [],
-
         imageurl:
             'https://firebasestorage.googleapis.com/v0/b/boomtown-b0c6a.appspot.com/o/item-placeholder.jpg?alt=media&token=6f7e6af4-697f-4323-8cca-ff3d9aeb4891'
     };
@@ -84,9 +80,8 @@ class Share extends Component {
     };
 
     submitForm = () => {
-        const { tags } = this.props;
         const tagList = [];
-        tags.forEach(tag => tagList.push({ id: tag }));
+        this.props.tags.forEach(tag => tagList.push({ id: tag }));
         this.props
             .mutate({
                 variables: {
@@ -106,24 +101,18 @@ class Share extends Component {
         this.props.dispatch(resetTags());
         this.props.history.push('/items');
     };
+
     fileUpload = e => {
-        // if (input.target.value) {
         const file = e.target.files[0];
-        console.log(file);
         const name = `${+new Date()}-${file.name}`;
         const metadata = {
             contentType: file.type
         };
         const task = firebaseRef.child(name).put(file, metadata);
-        // console.log(file, name, metadata);
         task
             .then(snapshot => {
                 const url = snapshot.downloadURL;
-                // console.log(url);
                 this.setState({ imageurl: url });
-
-                console.log(this.state.imageurl);
-                //   document.querySelector('#someImageTagID').src = url;
             })
             .catch(error => {
                 console.error(error);
@@ -168,18 +157,6 @@ class Share extends Component {
     }
 
     render() {
-        // this.props.data.tags
-        //     ? this.props.dispatch(getTagList(this.props.data.tags))
-        //     : '';
-        // const tagsIdTitle = this.props.tagList ? this.props.tagList : [];
-        // console.log(tagsIdTitle);
-        // const tagList = this.props.tagList ? this.props.tagList : [];
-        // console.log(this.props.data);
-        const { finished, stepIndex, values } = this.state;
-        // console.log(document.querySelector('#image'));
-
-        // if (document.getElementById('image')) {
-
         return (
             <div className="share-container">
                 <div className="share-item-card">
@@ -199,7 +176,6 @@ class Share extends Component {
                                         className="share-gravatar"
                                     />
                                 }
-                                // title={item.itemowner.fullname}
                                 subtitle={moment().fromNow()}
                             />
                         </Link>
@@ -215,7 +191,10 @@ class Share extends Component {
                     style={{ maxWidth: 600, maxHeight: 500, margin: 'auto' }}
                 >
                     {' '}
-                    <Stepper activeStep={stepIndex} orientation="vertical">
+                    <Stepper
+                        activeStep={this.state.stepIndex}
+                        orientation="vertical"
+                    >
                         <Step>
                             <StepLabel>Add an Image</StepLabel>
                             <StepContent>
@@ -308,19 +287,23 @@ class Share extends Component {
 }
 
 const mapStateToProps = state => ({
-    // isLoading: state.items.isLoading,
-    // items: state.items.items,
-    // filteredItems: state.items.filteredItems,
-    // error: state.items.error,
     title: state.share.title,
     description: state.share.description,
     tags: state.items.tags,
     tagList: state.items.tagList
 });
 
+Share.propTypes = {
+    mutate: PropTypes.func.isRequired,
+    tags: PropTypes.array.isRequired,
+    title: PropTypes.string.isRequired,
+    description: PropTypes.string.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired
+};
+
 export default compose(
     graphql(addItemMutation),
-
     connect(mapStateToProps),
     graphql(fetchTags)
 )(withRouter(Share));
