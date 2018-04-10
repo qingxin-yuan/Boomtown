@@ -12,9 +12,7 @@
   display: flex;
   flex-flow: row nowrap;
 }
-/* .user-meta{
-  margin: 0 1.5rem;
-} */
+
 .user-info{
   width: 50%;
   margin: 0 1.5rem;
@@ -40,13 +38,11 @@
 }
 .user-gravatar{
   border-radius: 50%;
-  /* width: 30%; */
   max-width: 100px !important;
   max-height: 100px !important;
 }
 @media screen and (min-width: 800px){
   .user-gravatar{
-    /* size: 170; */
     max-width: 100% !important;
     max-height: none !important;
   }

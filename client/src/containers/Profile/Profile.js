@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { Card } from 'material-ui/Card';
 import Gravatar from 'react-gravatar';
 
@@ -9,7 +8,6 @@ import Items from '../Items/Items';
 import './style.css';
 
 const Profile = ({ items, user }) => (
-    //  console.log(userid);
     <div className="profile">
         <Card style={{ maxWidth: '800px', margin: '0 auto' }}>
             <div className="profile-header">

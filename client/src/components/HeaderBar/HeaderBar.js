@@ -1,18 +1,11 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 import { Route, Link } from 'react-router-dom';
-
 import RaisedButton from 'material-ui/RaisedButton';
 import AppBar from 'material-ui/AppBar';
 
 import { firebaseAuth } from '../../config/firebase';
-import { logOut } from '../../redux/modules/authentication';
-
 import logo from '../../images/boomtown-logo.svg';
-// import Items from '../../containers/Items';
-
 import TagFilter from '../TagFilter';
-// import { getFilterTags } from '../../redux/modules/items';
 
 import './style.css';
 
@@ -47,7 +40,6 @@ const HeaderBar = () => (
                         secondary
                         onClick={() => {
                             firebaseAuth.signOut();
-                            // logOut();
                         }}
                     />
                 </Link>

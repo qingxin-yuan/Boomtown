@@ -15,8 +15,6 @@ import Gravatar from 'react-gravatar';
 import moment from 'moment';
 import { firebaseAuth } from '../../config/firebase';
 
-import './style.css';
-
 const ItemCard = ({ item, overlayText }) => (
     <Card>
         <CardMedia

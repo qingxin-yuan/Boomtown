@@ -10,8 +10,6 @@ module.exports = app =>{
   // app.set('GQL_PORT', process.env.GQL_PORT || '3002');
   //Express Configs
   app.set('PORT', process.env.PORT || '3002');
-  //Temperary JSON server
-  // app.set('JSON_PORT', '4000');
 
   //FIREBASE CONFIG
   app.set('FIREBASE_CONFIG', {

@@ -33,39 +33,7 @@ export const getTagList = tagList => ({
 export const resetTags = () => ({
     type: RESET_TAGS
 });
-// // ASYNC ACTION CREATOR
-// export const fetchItemsAndUser = () => dispatch => {
-//     dispatch(getItemsLoading()); // set loading icon before fetching the data
 
-//     return Promise.all(
-//         ['http://localhost:4000/items', 'http://localhost:4000/users'].map(
-//             url => fetch(url).then(response => response.json())
-//         )
-//     )
-
-//         .then(json => {
-//             const [itemsList, userList] = json;
-//             // const overlay = '';
-
-//             console.log(itemsList, userList);
-
-//             const newItemsList = itemsList.map(item => {
-//                 item.itemowner = userList
-//                     .slice()
-//                     .find(user => user.id === item.itemowner);
-
-//                 item.borrowerName = item.borrower
-//                     ? (item.borrowerName = userList
-//                         .slice()
-//                         .find(user => user.id === item.borrower).fullname)
-//                     : (item.borrowerName = null);
-//                 return item;
-//             });
-
-//             dispatch(getItems(newItemsList));
-//         })
-//         .catch(error => dispatch(getItemsError(error.message)));
-// };
 
 // REDUCER
 export default (

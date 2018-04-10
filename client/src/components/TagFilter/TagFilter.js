@@ -5,9 +5,9 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
 import { getFilterTags, getTagList } from '../../redux/modules/items';
-// import Items from '../../containers/Items';
 
 const fetchTags = gql`
     query {
@@ -19,22 +19,16 @@ const fetchTags = gql`
 `;
 
 const TagFilter = props => {
-    // console.log(props.data.tags);
     props.dispatch(getTagList(props.data.tags));
 
     // TAG FIELDS FROM POSTGRES
     const tagFields = props.tagList ? props.tagList : [];
-    // console.log(tagFields);
-    const handleChange = (event, index, values) => {
-        // console.log(this.props.items);
-        // console.log(event, index, values);
-        props.dispatch(getFilterTags(values));
 
-        // this.setState({ values });
+    const handleChange = (event, index, values) => {
+        props.dispatch(getFilterTags(values));
     };
 
     const menuItems = values =>
-        
         tagFields.map(tag => (
             <MenuItem
                 key={tag.title}
@@ -63,10 +57,19 @@ const TagFilter = props => {
 const mapStateToProps = state => ({
     isLoading: state.items.isLoading,
     items: state.items.items,
-    // filteredItems: state.items.filteredItems,
-    // error: state.items.error,
     tags: state.items.tags,
     tagList: state.items.tagList
 });
+
+TagFilter.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    data: PropTypes.object.isRequired,
+    tagList: PropTypes.array,
+    tags: PropTypes.array.isRequired
+};
+
+TagFilter.defaultProps = {
+    tagList: []
+};
 
 export default compose(connect(mapStateToProps), graphql(fetchTags))(TagFilter);

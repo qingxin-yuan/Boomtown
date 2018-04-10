@@ -58,9 +58,7 @@ module.exports = ({
 
       createNewItem(root, {newItem}) {
         console.log(newItem);
-        // console.log(payload.newItem.title);
-        //TO DO: save the new item in database
-        // return {title: payload.newItem.title};
+
         return createItem(newItem);
 
         //must return new item type, thanks to the mutation schema
@@ -73,4 +71,3 @@ module.exports = ({
   };
 };
 
-// module.exports = resolveFunctions;

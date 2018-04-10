@@ -74,9 +74,3 @@ module.exports = `
 
 
 `;
-
-
-
-// const resolvers = require("./resolvers"); 
-
-// module.exports =  

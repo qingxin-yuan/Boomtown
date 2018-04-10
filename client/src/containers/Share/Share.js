@@ -15,26 +15,19 @@ import Gravatar from 'react-gravatar';
 import moment from 'moment';
 
 import { Step, Stepper, StepLabel, StepContent } from 'material-ui/Stepper';
-// import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 import gql from 'graphql-tag';
 import { graphql, compose } from 'react-apollo';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
-// import image from '../../images/item-placeholder.jpg';
 
-// import { getTagList } from '../../redux/modules/items';
 import { getShareTitle, getShareDescription } from '../../redux/modules/share';
 import { resetTags } from '../../redux/modules/items';
 import TagFilter from '../../components/TagFilter/';
 import ValidatedTextfield from '../../components/ValidatedTextField/';
 
 import './style.css';
-// import { FirebaseAuth } from '@firebase/auth-types';
-/**
- * A contrived example using a transition between steps
- */
 
 const addItemMutation = gql`
     mutation addNewItem(
@@ -142,7 +135,6 @@ class Share extends Component {
         return (
             <div style={{ margin: '12px 0' }}>
                 {step === 3 && (
-                    // <Link to="/items">
                     <RaisedButton
                         label="submit"
                         disableTouchRipple
@@ -151,7 +143,6 @@ class Share extends Component {
                         onClick={this.submitForm}
                         style={{ marginRight: 12 }}
                     />
-                    // </Link>
                 )}
                 {step < 3 && (
                     <RaisedButton

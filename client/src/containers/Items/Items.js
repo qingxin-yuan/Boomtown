@@ -25,12 +25,9 @@ const overlay = item => {
 };
 
 const Items = ({ items }) => (
-    // const overlay = '';
     <Masonry className="masonry" elementType="ul">
         {items
             ? items.map(item => (
-                // <Masonry className="grid-item">
-
                 <li className="masonry-item" key={item.id}>
                     <ItemCard
                         key={item.id}
@@ -43,9 +40,8 @@ const Items = ({ items }) => (
     </Masonry>
 );
 
-export default Items;
-
-// specify what type of props are passing in
 Items.propTypes = {
     items: PropTypes.array.isRequired
 };
+
+export default Items;

@@ -7,18 +7,14 @@ import HeaderBar from '../HeaderBar';
 import Footer from '../Footer';
 
 import './styles.css';
-// import { userLoading } from '../../redux/modules/authentication';
-// import { STATUS_CODES } from 'http';
 
 const Layout = ({ children, userLoading, authenticated }) =>
     (userLoading ? (
-        <div>User Loading....</div> // don't show app when user is loading..
+        // Hide the app when user is loading..
+        <div>User Loading....</div>
     ) : (
         <div className="appContentWrapper">
-            <div className="appHeader">
-                {// console.log(authenticated)
-                    authenticated && <HeaderBar />}
-            </div>
+            <div className="appHeader">{authenticated && <HeaderBar />}</div>
             <div className="appContent">{children}</div>
             <div className="appFooter">{authenticated && <Footer />}</div>
         </div>
@@ -29,17 +25,14 @@ Layout.defaultProps = {
 };
 
 Layout.propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    userLoading: PropTypes.bool.isRequired,
+    authenticated: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => ({
     userLoading: state.auth.userLoading,
     authenticated: state.auth.authenticated
 });
-
-// export default connect(({ userLoading, authenticated }) => ({
-//     userLoading,
-//     authenticated
-// }))(Layout);
 
 export default withRouter(connect(mapStateToProps)(Layout));

@@ -1,29 +1,19 @@
-/* .masonry-wrapper{
+.masonry {
   width: 100%;
-} */
-
-.masonry{
-  width: 100%;
-  /* height: 100%; */
-  /* margin: 0 50px; */
 }
-.masonry-item{
-  /* position: relative; */
+.masonry-item {
   width: 100%;
   padding: 1%;
-  /* padding: 0; */
 }
 
-
-
-@media screen and (min-width: 600px){
-  .masonry-item{
+@media screen and (min-width: 600px) {
+  .masonry-item {
     width: 50%;
   }
 }
 
-@media screen and (min-width: 950px){
-  .masonry-item{
+@media screen and (min-width: 950px) {
+  .masonry-item {
     width: 33%;
   }
 }

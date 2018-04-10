@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import PropTypes from 'prop-types';
 
-// import { connect } from 'react-redux';
-// import Items from './Items';
 import Profile from './Profile';
-// import { fetchItemsAndUser } from '../../redux/modules/profile';
 
 import './style.css';
 
@@ -42,22 +40,19 @@ const fetchUser = gql`
     }
 `;
 
-class ProfileContainer extends Component {
-    // componentDidMount() {
-    //     this.props.dispatch(fetchItemsAndUser(this.props.match.params.userid));
-    // }
+const ProfileContainer = props => {
+    const { loading, user } = props.data;
 
-    render() {
-        const { loading, user } = this.props.data;
-        console.log(user);
+    return loading ? (
+        <p> loading....</p>
+    ) : (
+        <Profile items={user.shareditems} user={user} />
+    );
+};
 
-        return loading ? (
-            <p> loading....</p>
-        ) : (
-            <Profile items={user.shareditems} user={user} />
-        );
-    }
-}
+ProfileContainer.propTypes = {
+    data: PropTypes.object.isRequired
+};
 
 export default graphql(fetchUser, {
     options: ownProps => ({

@@ -1,27 +1,18 @@
 const express = require("express");
 const cors = require("cors");
-
 const bodyParser = require("body-parser");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
 const { makeExecutableSchema } = require("graphql-tools");
 
-
-
 const typeDefs = require("./api/schema");
 const initResolvers = require("./api/resolvers");
-
 const initLoaders = require('./api/loaders');
-
-
-
 const config = require("./config");
 
 const app = express();
 config(app);
 
 
-
-// const jsonResource = require("./api/resources/jsonResource")(app);
 const postgresResource = require("./api/resources/postgresRsource");
 const firebaseResource = require("./api/resources/firebaseResource")(app);
 
@@ -32,7 +23,6 @@ const start = (postgresResource)=>{
   const schema = makeExecutableSchema({
     typeDefs,
     resolvers: initResolvers({
-      // jsonResource,
       postgresResource,
       firebaseResource
   
@@ -48,7 +38,6 @@ const start = (postgresResource)=>{
   app.use("/graphql", bodyParser.json(), graphqlExpress({ 
     schema,
     context: {loaders: initLoaders({
-      // jsonResource,
       postgresResource
     })}
    }));

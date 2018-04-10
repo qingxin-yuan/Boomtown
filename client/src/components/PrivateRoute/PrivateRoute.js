@@ -1,12 +1,12 @@
 import React from 'react';
-
 import { connect } from 'react-redux';
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 const PrivateRoute = ({ authenticated, component: Component, ...rest }) => (
     <Route
-        {...rest} // set props with the rest of the parent props
-        // path={path}
+        // set props with the rest of the parent props
+        {...rest}
         render={props =>
             (!authenticated ? (
                 <Redirect
@@ -16,7 +16,6 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => (
                     }}
                 />
             ) : (
-                // debugger
                 <Component {...props} />
             ))
         }
@@ -26,5 +25,11 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => (
 const mapStateToProps = state => ({
     authenticated: state.auth.authenticated
 });
+
+PrivateRoute.propTypes = {
+    authenticated: PropTypes.bool.isRequired,
+    component: PropTypes.func.isRequired,
+    location: PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps)(PrivateRoute);
