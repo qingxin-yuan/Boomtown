@@ -22,6 +22,7 @@ const ValidatedTextField = ({ label, handleChange, value, type }) => (
     <TextField
         style={styles.fieldStyle}
         floatingLabelText={label}
+        hintText={label}
         errorStyle={styles.errorStyle}
         underlineFocusStyle={styles.underlineStyle}
         onChange={handleChange}
@@ -39,7 +40,6 @@ ValidatedTextField.propTypes = {
 
 ValidatedTextField.defaultProps = {
     type: '',
-    value: ''
 };
 
 export default ValidatedTextField;

@@ -9,7 +9,7 @@ import Items from './Items';
 
 import './style.css';
 
-const fetchItems = gql`
+export const fetchItems = gql`
     query {
         items {
             id

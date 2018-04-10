@@ -23,6 +23,7 @@ import { getShareTitle, getShareDescription } from '../../redux/modules/share';
 import { resetTags } from '../../redux/modules/items';
 import TagFilter from '../../components/TagFilter/';
 import ValidatedTextfield from '../../components/ValidatedTextField/';
+import { fetchItems } from '../Items/ItemsContainer';
 
 import './style.css';
 
@@ -64,16 +65,13 @@ const fetchUserName = gql`
 `;
 
 class Share extends Component {
-    // constructor(props){
-    //     super(props);
-
-    // }
     state = {
         finished: false,
         stepIndex: 0,
         values: [],
         imageurl:
-            'https://firebasestorage.googleapis.com/v0/b/boomtown-b0c6a.appspot.com/o/item-placeholder.jpg?alt=media&token=6f7e6af4-697f-4323-8cca-ff3d9aeb4891'
+            'https://firebasestorage.googleapis.com/v0/b/boomtown-b0c6a.appspot.com/o/item-placeholder.jpg?alt=media&token=6f7e6af4-697f-4323-8cca-ff3d9aeb4891',
+        imageSelected: true
     };
 
     handleNext = () => {
@@ -91,27 +89,27 @@ class Share extends Component {
         }
     };
 
-    submitForm = () => {
+    submitForm = async () => {
         const tagList = [];
         this.props.tags.forEach(tag => tagList.push({ id: tag }));
-        this.props
-            .mutate({
+        try {
+            await this.props.mutate({
                 variables: {
-                    title: this.props.title,
-                    description: this.props.description,
+                    title: this.props.title || 'Awesome Item',
+                    description:
+                        this.props.description || 'Profound item description.',
                     imageurl: this.state.imageurl,
                     itemowner: firebaseAuth.currentUser.uid,
                     tags: tagList
-                }
-            })
-            .then(data => {
-                console.log('got data!', data);
-            })
-            .catch(error => {
-                console.log('something terrible happened', error);
+                },
+                refetchQueries: [{ query: fetchItems }]
             });
-        this.props.dispatch(resetTags());
-        this.props.history.push('/items');
+
+            this.props.dispatch(resetTags());
+            this.props.history.push('/items');
+        } catch (error) {
+            console.log('something terrible happened', error);
+        }
     };
 
     fileUpload = e => {
@@ -124,7 +122,7 @@ class Share extends Component {
         task
             .then(snapshot => {
                 const url = snapshot.downloadURL;
-                this.setState({ imageurl: url });
+                this.setState({ imageurl: url, imageSelected: false });
             })
             .catch(error => {
                 console.error(error);
@@ -132,6 +130,38 @@ class Share extends Component {
     };
     renderStepActions = step => (
         <div style={{ margin: '12px 0' }}>
+            {step === 0 && (
+                <RaisedButton
+                    label="next"
+                    disableTouchRipple
+                    disableFocusRipple
+                    primary
+                    disabled={this.state.imageSelected}
+                    onClick={this.handleNext}
+                    style={{ marginRight: 12 }}
+                />
+            )}
+            {step === 1 && (
+                <RaisedButton
+                    label="next"
+                    disableTouchRipple
+                    disableFocusRipple
+                    primary
+                    onClick={this.handleNext}
+                    style={{ marginRight: 12 }}
+                />
+            )}
+            {step === 2 && (
+                <RaisedButton
+                    label="next"
+                    disableTouchRipple
+                    disableFocusRipple
+                    primary
+                    disabled={this.props.tags.length === 0}
+                    onClick={this.handleNext}
+                    style={{ marginRight: 12 }}
+                />
+            )}
             {step === 3 && (
                 <RaisedButton
                     label="submit"
@@ -139,16 +169,6 @@ class Share extends Component {
                     disableFocusRipple
                     primary
                     onClick={this.submitForm}
-                    style={{ marginRight: 12 }}
-                />
-            )}
-            {step < 3 && (
-                <RaisedButton
-                    label="next"
-                    disableTouchRipple
-                    disableFocusRipple
-                    primary
-                    onClick={this.handleNext}
                     style={{ marginRight: 12 }}
                 />
             )}
@@ -202,7 +222,6 @@ class Share extends Component {
                     className="share-form"
                     style={{ maxWidth: 600, maxHeight: 500, margin: 'auto' }}
                 >
-                    {' '}
                     <Stepper
                         activeStep={this.state.stepIndex}
                         orientation="vertical"
@@ -250,11 +269,11 @@ class Share extends Component {
 
                                 <ValidatedTextfield
                                     label="Title"
-                                    handleChange={e =>
+                                    handleChange={e => {
                                         this.props.dispatch(
                                             getShareTitle(e.target.value)
-                                        )
-                                    }
+                                        );
+                                    }}
                                 />
                                 <ValidatedTextfield
                                     label="Description"
