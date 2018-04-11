@@ -269,6 +269,7 @@ class Share extends Component {
 
                                 <ValidatedTextfield
                                     label="Title"
+                                    value={this.props.title}
                                     handleChange={e => {
                                         this.props.dispatch(
                                             getShareTitle(e.target.value)
@@ -277,6 +278,7 @@ class Share extends Component {
                                 />
                                 <ValidatedTextfield
                                     label="Description"
+                                    value={this.props.description}
                                     handleChange={e =>
                                         this.props.dispatch(
                                             getShareDescription(e.target.value)

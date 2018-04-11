@@ -47,13 +47,15 @@ ValidatedTextField.propTypes = {
     handleChange: PropTypes.func.isRequired,
     value: PropTypes.string,
     type: PropTypes.string,
-    errorMessage: PropTypes.string.isRequired,
-    valid: PropTypes.bool.isRequired
+    errorMessage: PropTypes.string,
+    valid: PropTypes.bool
 };
 
 ValidatedTextField.defaultProps = {
     type: 'text',
-    value: ''
+    value: '',
+    errorMessage: '',
+    valid: true
 };
 
 export default ValidatedTextField;
