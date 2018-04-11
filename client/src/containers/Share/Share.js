@@ -19,7 +19,11 @@ import { graphql, compose } from 'react-apollo';
 import PropTypes from 'prop-types';
 
 import { firebaseAuth, firebaseRef } from '../../config/firebase';
-import { getShareTitle, getShareDescription } from '../../redux/modules/share';
+import {
+    getShareTitle,
+    getShareDescription,
+    getShareError
+} from '../../redux/modules/share';
 import { resetTags } from '../../redux/modules/items';
 import TagFilter from '../../components/TagFilter/';
 import ValidatedTextfield from '../../components/ValidatedTextField/';
@@ -104,12 +108,11 @@ class Share extends Component {
                 },
                 refetchQueries: [{ query: fetchItems }]
             });
-
-            this.props.dispatch(resetTags());
-            this.props.history.push('/items');
         } catch (error) {
-            console.log('something terrible happened', error);
+            this.props.dispatch(getShareError(error.message));
         }
+        this.props.dispatch(resetTags());
+        this.props.history.push('/items');
     };
 
     fileUpload = e => {
@@ -118,15 +121,15 @@ class Share extends Component {
         const metadata = {
             contentType: file.type
         };
-        const task = firebaseRef.child(name).put(file, metadata);
-        task
-            .then(snapshot => {
+        try {
+            const task = firebaseRef.child(name).put(file, metadata);
+            task.then(snapshot => {
                 const url = snapshot.downloadURL;
                 this.setState({ imageurl: url, imageSelected: false });
-            })
-            .catch(error => {
-                console.error(error);
             });
+        } catch (error) {
+            this.props.dispatch(getShareError(error.message));
+        }
     };
     renderStepActions = step => (
         <div style={{ margin: '12px 0' }}>
@@ -222,6 +225,9 @@ class Share extends Component {
                     className="share-form"
                     style={{ maxWidth: 600, maxHeight: 500, margin: 'auto' }}
                 >
+                    <div className="error-message">
+                        {this.props.error.length > 0 ? this.props.error : ''}
+                    </div>
                     <Stepper
                         activeStep={this.state.stepIndex}
                         orientation="vertical"
@@ -322,6 +328,7 @@ class Share extends Component {
 const mapStateToProps = state => ({
     title: state.share.title,
     description: state.share.description,
+    error: state.share.error,
     tags: state.items.tags,
     tagList: state.items.tagList
 });
@@ -333,7 +340,8 @@ Share.propTypes = {
     description: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired,
     history: PropTypes.object.isRequired,
-    uid: PropTypes.string.isRequired
+    uid: PropTypes.string.isRequired,
+    error: PropTypes.string.isRequired
 };
 
 export default compose(
