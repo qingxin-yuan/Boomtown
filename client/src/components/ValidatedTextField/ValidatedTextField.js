@@ -9,21 +9,32 @@ const styles = {
         width: '100%'
     },
     errorStyle: {
-        color: blueGrey900,
+        color: 'red',
         position: 'absolute',
         bottom: '-0.42rem'
+    },
+    floatingLabel: {
+        color: '#48C6EF'
     },
     underlineStyle: {
         borderColor: blueGrey900
     }
 };
 
-const ValidatedTextField = ({ label, handleChange, value, type }) => (
+const ValidatedTextField = ({
+    label,
+    handleChange,
+    value,
+    type,
+    errorMessage,
+    valid
+}) => (
     <TextField
         style={styles.fieldStyle}
         floatingLabelText={label}
         hintText={label}
         errorStyle={styles.errorStyle}
+        errorText={!valid && errorMessage}
         underlineFocusStyle={styles.underlineStyle}
         onChange={handleChange}
         value={value}
@@ -35,11 +46,14 @@ ValidatedTextField.propTypes = {
     label: PropTypes.string.isRequired,
     handleChange: PropTypes.func.isRequired,
     value: PropTypes.string,
-    type: PropTypes.string
+    type: PropTypes.string,
+    errorMessage: PropTypes.string.isRequired,
+    valid: PropTypes.bool.isRequired
 };
 
 ValidatedTextField.defaultProps = {
-    type: '',
+    type: 'text',
+    value: ''
 };
 
 export default ValidatedTextField;

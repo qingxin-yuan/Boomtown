@@ -326,7 +326,6 @@ const mapStateToProps = state => ({
 
 Share.propTypes = {
     fetchUserName: PropTypes.object.isRequired,
-    mutate: PropTypes.func.isRequired,
     tags: PropTypes.array.isRequired,
     title: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,

@@ -6,18 +6,22 @@ import Paper from 'material-ui/Paper';
 
 import ValidatedTextField from '../../components/ValidatedTextField';
 
-import './styles.css';
 import logo from '../../images/boomtown-logo.svg';
 import bottomLeft from '../../images/home-bl.svg';
 import topRight from '../../images/home-tr.svg';
+
+import './styles.css';
 
 const Login = ({
     login,
     handleUpdateEmail,
     handleUpdatePassword,
     emailInputValue,
+    emailValid,
+    passwordValid,
     passwordInputValue,
-    LoginError
+    LoginError,
+    buttonDisabled
 }) => (
     <div className="page login">
         <div className="logo">
@@ -44,6 +48,8 @@ const Login = ({
                                 label="Email"
                                 handleChange={handleUpdateEmail}
                                 value={emailInputValue}
+                                errorMessage={'Invalid Email'}
+                                valid={emailValid}
                             />
                         </div>
                         <div>
@@ -52,6 +58,10 @@ const Login = ({
                                 type="password"
                                 handleChange={handleUpdatePassword}
                                 value={passwordInputValue}
+                                errorMessage={
+                                    'Passwords must be at least 6 characters in length'
+                                }
+                                valid={passwordValid}
                             />
                         </div>
                         <RaisedButton
@@ -59,13 +69,15 @@ const Login = ({
                             primary
                             fullWidth
                             type="submit"
+                            disabled={buttonDisabled}
                         >
                             Enter
                         </RaisedButton>
                     </form>
-                    <div>
+                    <div className="error-message">
                         {LoginError.message &&
-                            `Something wrong...${LoginError.message}`}
+                            `Error: ${LoginError.message}
+                            Please try again.`}
                     </div>
                 </div>
             </Paper>
@@ -79,7 +91,10 @@ Login.propTypes = {
     handleUpdatePassword: PropTypes.func.isRequired,
     emailInputValue: PropTypes.string.isRequired,
     passwordInputValue: PropTypes.string.isRequired,
-    LoginError: PropTypes.object.isRequired
+    LoginError: PropTypes.object.isRequired,
+    emailValid: PropTypes.bool.isRequired,
+    passwordValid: PropTypes.bool.isRequired,
+    buttonDisabled: PropTypes.bool.isRequired
 };
 
 export default Login;

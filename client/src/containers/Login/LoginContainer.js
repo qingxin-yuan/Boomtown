@@ -14,29 +14,56 @@ class LoginContainer extends Component {
         this.state = {
             emailInputValue: '',
             passwordInputValue: '',
-            loginError: {}
+            emailValid: true,
+            passwordValid: true,
+            loginError: {},
+            buttonDisabled: true
         };
     }
 
-    handleUpdatePassword = ({ target: { value } }) => {
+    handleUpdatePassword = async ({ target: { value } }) => {
         this.setState({ passwordInputValue: value });
+        if (value.length >= 6 || value.length === 0) {
+            await this.setState({ passwordValid: true });
+        } else {
+            await this.setState({ passwordValid: false });
+        }
+        this.buttonDisable();
     };
+
     handleUpdateEmail = event => {
         this.setState({ emailInputValue: event.target.value });
+        if (
+            // eslint-disable-next-line
+            /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+                event.target.value
+            )
+        ) {
+            this.setState({ emailValid: true });
+        } else {
+            this.setState({ emailValid: false });
+        }
+        this.buttonDisable();
+    };
+    buttonDisable = () => {
+        const disable =
+            this.state.emailInputValue.length === 0 ||
+            this.state.passwordInputValue.length === 0
+                ? true
+                : !this.state.emailValid || !this.state.passwordValid;
+        this.setState({ buttonDisabled: disable });
     };
 
-    login = () => {
-        if (this.state.emailInputValue && this.state.passwordInputValue) {
-            firebaseAuth
-                .signInWithEmailAndPassword(
-                    this.state.emailInputValue,
-                    this.state.passwordInputValue
-                )
-
-                .catch(error => {
-                    this.setState({ loginError: error });
-                });
-        }
+    login = async () => {
+        await firebaseAuth
+            .signInWithEmailAndPassword(
+                this.state.emailInputValue,
+                this.state.passwordInputValue
+            )
+            .catch(error => {
+                this.setState({ loginError: error });
+            });
+        this.setState({ emailInputValue: '', passwordInputValue: '' });
     };
 
     render() {
@@ -48,10 +75,13 @@ class LoginContainer extends Component {
             <Login
                 login={this.login}
                 emailInputValue={this.state.emailInputValue}
+                emailValid={this.state.emailValid}
+                passwordValid={this.state.passwordValid}
                 passwordInputValue={this.state.passwordInputValue}
                 handleUpdateEmail={this.handleUpdateEmail}
                 handleUpdatePassword={this.handleUpdatePassword}
                 LoginError={this.state.loginError}
+                buttonDisabled={this.state.buttonDisabled}
             />
         ) : (
             <Redirect to={from} />

@@ -60,6 +60,10 @@
     right: 0;
 }
 
+.error-message{
+    color: red;
+}
+
 @keyframes parallax-clouds {
     0% {
         transform: translate3d(0px, 0px, 0px);
