@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
@@ -50,6 +51,10 @@ const start = (postgresResource)=>{
     })
   );
   
+  if (process.env.NODE_ENV ==="production"){
+    app.use(express.static(path.resolve(__dirname, 'public')))
+  }
+
   app.listen(app.get("PORT"), () => {
     console.log(app.get("PORT"));
     console.log(
