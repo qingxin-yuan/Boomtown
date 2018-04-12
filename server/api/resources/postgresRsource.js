@@ -26,7 +26,7 @@ module.exports = async app => {
     },
     getItems() {
       return new Promise((resolve, reject) => {
-        client.query("SELECT * FROM items", (err, res) => {
+        client.query("SELECT * FROM items;", (err, res) => {
           resolve(res.rows);
         });
       });
