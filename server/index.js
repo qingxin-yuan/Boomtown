@@ -20,6 +20,10 @@ const firebaseResource = require("./api/resources/firebaseResource")(app);
 postgresResource(app).then(pgResource=>start(pgResource));
 
 
+if (process.env.NODE_ENV ==="production"){
+  app.use(express.static(path.resolve(__dirname, 'public')))
+}
+
 const start = (postgresResource)=>{
   const schema = makeExecutableSchema({
     typeDefs,
@@ -51,9 +55,6 @@ const start = (postgresResource)=>{
     })
   );
   
-  if (process.env.NODE_ENV ==="production"){
-    app.use(express.static(path.resolve(__dirname, 'public')))
-  }
 
   app.listen(app.get("PORT"), () => {
     console.log(app.get("PORT"));
