@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { reducer as formReducer } from 'redux-form';
 
 import itemsReducer from './modules/items';
 import shareReducer from './modules/share';
@@ -9,5 +8,4 @@ export default combineReducers({
     items: itemsReducer,
     share: shareReducer,
     auth: authReducer,
-    form: formReducer
 });

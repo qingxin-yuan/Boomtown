@@ -11,7 +11,6 @@
     "firebase": "^4.9.0",
     "graphql": "^0.12.3",
     "graphql-tag": "^2.6.1",
-    "json-server": "^0.12.0",
     "material-ui": "^0.19.2",
     "moment": "^2.20.1",
     "prop-types": "^15.6.0",
@@ -25,7 +24,6 @@
     "react-router-dom": "^4.2.2",
     "redux": "^3.7.2",
     "redux-devtools-extension": "^2.13.2",
-    "redux-form": "^7.2.3",
     "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
@@ -41,7 +39,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "json-server": "json-server --watch ../server/db.json --port 4000",
     "dev": "concurrently \"react-scripts start\" \"nodemon ../server/index.js\" "
   }
 }
