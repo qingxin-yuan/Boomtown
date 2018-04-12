@@ -40,10 +40,10 @@ const Boomtown = () => (
                     <div>
                         <Layout>
                             <Switch>
-                                <Route exact path="/" component={Login} />
+                                <Route exact path="/login" component={Login} />
                                 <PrivateRoute
                                     exact
-                                    path="/items"
+                                    path="/"
                                     component={Items}
                                 />
                                 <PrivateRoute
