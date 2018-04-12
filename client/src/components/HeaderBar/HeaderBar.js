@@ -13,11 +13,11 @@ const HeaderBar = () => (
     <AppBar
         iconElementLeft={
             <div className="header-left">
-                <Link to="/items">
+                <Link to="/">
                     <img src={logo} alt="boomtown logo" />
                 </Link>
 
-                <Route exact path={'/items'} component={TagFilter} />
+                <Route exact path={'/'} component={TagFilter} />
             </div>
         }
         iconElementRight={

@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require('path');
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { graphqlExpress, graphiqlExpress } = require("apollo-server-express");
@@ -18,6 +19,11 @@ const firebaseResource = require("./api/resources/firebaseResource")(app);
 
 postgresResource(app).then(pgResource=>start(pgResource));
 
+app.use("*", cors());
+
+if (process.env.NODE_ENV ==="production"){
+  app.use(express.static(path.resolve(__dirname, 'public')))
+}
 
 const start = (postgresResource)=>{
   const schema = makeExecutableSchema({
@@ -30,8 +36,8 @@ const start = (postgresResource)=>{
   });
   
   //CORS middleware
-  app.use("*", cors());
-  
+  // app.use("*", cors({ origin: 'http://localhost:8000' }));
+  // app.use("*", cors());
   /*********TWO MIDDLEWARE*************/
   
   // Where we will send all of our GraphQL requests
@@ -41,6 +47,7 @@ const start = (postgresResource)=>{
       postgresResource
     })}
    }));
+
   
   // A route for accessing the GraphiQL tool
   app.use(
@@ -50,6 +57,7 @@ const start = (postgresResource)=>{
     })
   );
   
+
   app.listen(app.get("PORT"), () => {
     console.log(app.get("PORT"));
     console.log(

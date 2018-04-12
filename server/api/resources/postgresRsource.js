@@ -2,11 +2,12 @@ const { Client } = require("pg");
 
 module.exports = async app => {
   const client = new Client({
-    user: app.get("PGUSER"),
-    host: app.get("PGHOST"),
-    database: app.get("PGDATABASE"),
-    password: app.get("PGPASSWORD"),
-    port: app.get("PGPORT")
+    // user: app.get("PGUSER"),
+    // host: app.get("PGHOST"),
+    // database: app.get("PGDATABASE"),
+    // password: app.get("PGPASSWORD"),
+    // port: app.get("PGPORT"),
+    connectionString: process.env.DATABASE_URL,
   });
 
   await client.connect();
@@ -25,7 +26,7 @@ module.exports = async app => {
     },
     getItems() {
       return new Promise((resolve, reject) => {
-        client.query("SELECT * FROM items", (err, res) => {
+        client.query("SELECT * FROM items;", (err, res) => {
           resolve(res.rows);
         });
       });
@@ -100,6 +101,7 @@ module.exports = async app => {
         throw e;
       }
     },
+    //TODO
     updateItem(id) {
       return;
     }
