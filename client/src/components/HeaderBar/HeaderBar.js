@@ -17,7 +17,7 @@ const HeaderBar = () => (
                     <img src={logo} alt="boomtown logo" />
                 </Link>
 
-                <Route exact path={'/items'} component={TagFilter} />
+                <Route exact path={'/'} component={TagFilter} />
             </div>
         }
         iconElementRight={
