@@ -112,7 +112,7 @@ class Share extends Component {
             this.props.dispatch(getShareError(error.message));
         }
         this.props.dispatch(resetTags());
-        this.props.history.push('/items');
+        this.props.history.push('/');
     };
 
     fileUpload = e => {
