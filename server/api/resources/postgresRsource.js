@@ -2,12 +2,12 @@ const { Client } = require("pg");
 
 module.exports = async app => {
   const client = new Client({
-    user: app.get("PGUSER"),
-    host: app.get("PGHOST"),
-    database: app.get("PGDATABASE"),
-    password: app.get("PGPASSWORD"),
-    port: app.get("PGPORT")
-    // connectionString: process.env.DATABASE_URL,
+    // user: app.get("PGUSER"),
+    // host: app.get("PGHOST"),
+    // database: app.get("PGDATABASE"),
+    // password: app.get("PGPASSWORD"),
+    // port: app.get("PGPORT"),
+    connectionString: process.env.DATABASE_URL,
   });
 
   await client.connect();
