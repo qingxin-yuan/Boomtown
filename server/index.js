@@ -22,6 +22,8 @@ postgresResource(app).then(pgResource=>start(pgResource));
 
 if (process.env.NODE_ENV ==="production"){
   app.use(express.static(path.resolve(__dirname, 'public')))
+} else{
+  app.use("*", cors());
 }
 
 const start = (postgresResource)=>{
@@ -36,7 +38,7 @@ const start = (postgresResource)=>{
   
   //CORS middleware
   // app.use("*", cors({ origin: 'http://localhost:8000' }));
-  app.use("*", cors());
+  // app.use("*", cors());
   /*********TWO MIDDLEWARE*************/
   
   // Where we will send all of our GraphQL requests
