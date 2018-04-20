@@ -19,11 +19,10 @@ const firebaseResource = require("./api/resources/firebaseResource")(app);
 
 postgresResource(app).then(pgResource=>start(pgResource));
 
+app.use("*", cors());
 
 if (process.env.NODE_ENV ==="production"){
   app.use(express.static(path.resolve(__dirname, 'public')))
-} else{
-  app.use("*", cors());
 }
 
 const start = (postgresResource)=>{
