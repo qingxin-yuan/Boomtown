@@ -1,14 +1,15 @@
 const { Client } = require("pg");
 
 module.exports = async app => {
-  const client = new Client({
-    user: app.get("PGUSER"),
-    host: app.get("PGHOST"),
-    database: app.get("PGDATABASE"),
-    password: app.get("PGPASSWORD"),
-    // port: app.get("PGPORT"),
-    // connectionString: process.env.DATABASE_URL,
-  });
+  const client =
+    process.env.NODE_ENV === "production"
+      ? new Client({ connectionString: process.env.DATABASE_URL })
+      : new Client({
+          user: app.get("PGUSER"),
+          host: app.get("PGHOST"),
+          database: app.get("PGDATABASE"),
+          password: app.get("PGPASSWORD")
+        });
 
   await client.connect();
 
@@ -80,7 +81,6 @@ module.exports = async app => {
 
       const itemInsertQuery = `INSERT INTO items(title, description, imageurl, itemowner) VALUES($1, $2, $3, $4) RETURNING *`;
 
-
       try {
         await client.query("BEGIN");
         const itemResult = await client.query(itemInsertQuery, itemValues);
@@ -95,8 +95,7 @@ module.exports = async app => {
         await client.query("COMMIT");
 
         return itemResult.rows[0];
-      } 
-      catch (e) {
+      } catch (e) {
         await client.query("ROLLBACK");
         throw e;
       }

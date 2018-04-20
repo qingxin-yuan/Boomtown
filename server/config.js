@@ -1,17 +1,16 @@
 module.exports = app =>{
 
   //POSTGRES Configs
-  app.set('PGUSER', process.env.PGUSER || 'boomtowndb');
-  app.set('PGPASSWORD', process.env.PGPASSWORD || 'boomtowndb');
-  app.set('PGDATABASE', process.env.PGDATABASE || 'boomtowndb');
-  app.set('PGHOST', process.env.PGHOST || 'localhost');
-  app.set('PG_PORT', process.env.PG_PORT || '5432');
-  // app.set('PGCONNECTION',process.env.DATABASE_URL);
-  //  //graphQL Configs
-  // app.set('GQL_PORT', process.env.GQL_PORT || '3002');
+  app.set('PGUSER', 'boomtowndb');
+  app.set('PGPASSWORD', 'boomtowndb');
+  app.set('PGDATABASE', 'boomtowndb');
+  app.set('PGHOST', 'localhost');
+  app.set('PG_PORT', '5432');
+  app.set('PGCONNECTION',process.env.DATABASE_URL);
+
   //Express Configs
   app.set('PORT', process.env.PORT || '5000');
-// app.set('PORT', '3002')
+
   //FIREBASE CONFIG
   app.set('FIREBASE_CONFIG', {
     apiKey: 'AIzaSyB13ZA3zZ5EI_rY_FU7Ad1SLfRSLSb0PaE',
