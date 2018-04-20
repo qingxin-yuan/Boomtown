@@ -4,22 +4,25 @@ An items sharing single-page app built on React, Redux, GraphQL.
 
 <img src="./boomtown-demo.gif" width="600" height="300">
 
-## Installation
+## Instructions
+### Installation
 
 Download the repo, then run:
 
 ```bash
 npm install && cd client && npm install
 ```
-
-## Start-up
+### Develop Mode
 
 From inside the root directory, run:
 
 ```bash
 yarn start:dev
 ```
-
+### Build for Production
+```bash
+yarn build:react
+```
 ## Features
 
 * Use React on the client side - different components in Layout, React Routing for page navigation
