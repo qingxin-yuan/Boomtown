@@ -7,7 +7,7 @@ const gqlServer =
 
 const client = new ApolloClient({
     link: new HttpLink({
-        uri: `http://${gqlServer}/graphql`
+        uri: `//${gqlServer}/graphql`
     }),
     cache: new InMemoryCache()
 });
