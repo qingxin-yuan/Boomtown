@@ -5,7 +5,7 @@ module.exports = app =>{
   app.set('PGPASSWORD', 'boomtowndb');
   app.set('PGDATABASE', 'boomtowndb');
   app.set('PGHOST', 'localhost');
-  app.set('PG_PORT', '5432');
+  app.set('PGPORT', '5432');
   app.set('PGCONNECTION',process.env.DATABASE_URL);
 
   //Express Configs

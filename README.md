@@ -9,15 +9,15 @@ An items sharing single-page app built on React, Redux, GraphQL.
 Download the repo, then run:
 
 ```bash
-cd client && npm install
+npm install && cd client && npm install
 ```
 
 ## Start-up
 
-From inside the `client` directory, run:
+From inside the root directory, run:
 
 ```bash
-npm run dev
+yarn start:dev
 ```
 
 ## Features
@@ -34,3 +34,4 @@ npm run dev
 ## Acknowledgement
 
 * Thanks RED Academy for design and materials preparation
+* Thanks [Mackenzie Kieran](https://github.com/10thfloor) for tips on deploying app to Heroku

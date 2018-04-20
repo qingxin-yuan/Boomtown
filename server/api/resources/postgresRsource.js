@@ -8,7 +8,8 @@ module.exports = async app => {
           user: app.get("PGUSER"),
           host: app.get("PGHOST"),
           database: app.get("PGDATABASE"),
-          password: app.get("PGPASSWORD")
+          password: app.get("PGPASSWORD"),
+          port: app.get("PGPORT"),
         });
 
   await client.connect();
