@@ -35,8 +35,8 @@ const start = (postgresResource)=>{
   });
   
   //CORS middleware
+  // app.use("*", cors({ origin: 'http://localhost:8000' }));
   app.use("*", cors());
-  
   /*********TWO MIDDLEWARE*************/
   
   // Where we will send all of our GraphQL requests
@@ -46,6 +46,7 @@ const start = (postgresResource)=>{
       postgresResource
     })}
    }));
+
   
   // A route for accessing the GraphiQL tool
   app.use(
